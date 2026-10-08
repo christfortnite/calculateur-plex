@@ -5,10 +5,10 @@ body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
 
-/* Papier froid, encre vert-noir, un seul accent vert profond, laiton pour les traits fins. */
+/* Papier chaud, encre bleu nuit, accent marine, sable pour les fonds secondaires. Le vert ne sert plus qu'à dire « positif ». */
 :root{
-  --bg:#f3f4f1; --surface:#ffffff; --ink:#131c19; --muted:#5b6862; --line:#d9ddd7; --tint:#e8ede8;
-  --accent:#1c4a3c; --accent-ink:#ffffff; --glow:#a8843f;
+  --bg:#f5f2ec; --surface:#ffffff; --ink:#151b23; --muted:#5f6670; --line:#ded8cc; --tint:#ebe4d6;
+  --accent:#1f3a5f; --accent-ink:#ffffff; --glow:#a8843f;
   --good:#1f6b4a; --warn:#8f6410; --bad:#a3372b;
   --seg-vac:#a3ada8; --seg-dep:#b8924a; --seg-int:#6a5a8c; --seg-cap:#3d6f8f; --seg-cf:#1f6b4a;
   --display:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
@@ -16,14 +16,14 @@ img{max-width:100%}
   --mono:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
-  --bg:#0d1311; --surface:#141b18; --ink:#e8ede9; --muted:#92a099; --line:#26302c; --tint:#1a2521;
-  --accent:#86c7ab; --accent-ink:#07211a; --glow:#d1ab62;
+  --bg:#0f1318; --surface:#161b22; --ink:#e9ecef; --muted:#969faa; --line:#272e38; --tint:#221f1a;
+  --accent:#a9c4e6; --accent-ink:#0b1b2e; --glow:#d1ab62;
   --good:#6fcf9f; --warn:#e0b45a; --bad:#ee8d80;
   --seg-vac:#6c7873; --seg-dep:#d1ab62; --seg-int:#a594cf; --seg-cap:#72a8cc; --seg-cf:#6fcf9f;
   color-scheme:dark } }
 :root[data-theme="dark"]{
-  --bg:#0d1311; --surface:#141b18; --ink:#e8ede9; --muted:#92a099; --line:#26302c; --tint:#1a2521;
-  --accent:#86c7ab; --accent-ink:#07211a; --glow:#d1ab62;
+  --bg:#0f1318; --surface:#161b22; --ink:#e9ecef; --muted:#969faa; --line:#272e38; --tint:#221f1a;
+  --accent:#a9c4e6; --accent-ink:#0b1b2e; --glow:#d1ab62;
   --good:#6fcf9f; --warn:#e0b45a; --bad:#ee8d80;
   --seg-vac:#6c7873; --seg-dep:#d1ab62; --seg-int:#a594cf; --seg-cap:#72a8cc; --seg-cf:#6fcf9f;
   color-scheme:dark }
