@@ -259,3 +259,10 @@ footer{color:var(--muted);font-size:13px;max-width:76ch}
 .lp-offre{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;border-top:1px solid var(--line);padding-top:24px}
 .lp-offre p{margin:0;color:var(--muted);max-width:60ch}
 .lp-offre strong{color:var(--ink)}
+
+/* Bannière en fondu derrière le haut de l'accueil : une rue de plex */
+.lp{position:relative;isolation:isolate}
+.lp-banner{position:absolute;z-index:-1;top:0;left:50%;width:100vw;height:min(400px,62vh);transform:translateX(-50%);opacity:.14;pointer-events:none;-webkit-mask-image:linear-gradient(to bottom,#000 35%,transparent 96%);mask-image:linear-gradient(to bottom,#000 35%,transparent 96%)}
+.lp-banner .b{fill:var(--accent)}
+.lp-banner .w{fill:var(--bg)}
+body.home{overflow-x:hidden}
