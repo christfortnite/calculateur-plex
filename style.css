@@ -288,7 +288,6 @@ footer a,.lp-foot a,.legal a{color:inherit;text-underline-offset:3px}
 .seuil-scene .fond{fill:var(--bg)}
 .seuil-scene .t{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
 .seuil-scene .t.fin{stroke-width:1;opacity:.4}
-.seuil-battant{transform-box:fill-box;transform-origin:left center}
 .seuil-battant .p{fill:var(--accent);stroke:var(--accent);stroke-width:1.6}
 .seuil-battant .c{fill:none;stroke:var(--accent-ink);stroke-width:1;opacity:.45}
 .seuil-battant .k{fill:var(--accent-ink)}
@@ -297,19 +296,17 @@ footer a,.lp-foot a,.legal a{color:inherit;text-underline-offset:3px}
 .seuil-titre span{display:block;font-family:var(--body);font-weight:500;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:10px}
 .seuil-note{bottom:4.5%;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 @media (prefers-reduced-motion: no-preference){
-  .porte .seuil-scene .t{animation:seuil-trait 1.15s cubic-bezier(.6,0,.2,1) both}
-  .porte .seuil-scene .t.d2{animation-delay:.18s}.porte .seuil-scene .t.d3{animation-delay:.36s}.porte .seuil-scene .t.d4{animation-delay:.54s}
-  .porte .seuil-battant{animation:seuil-open 1.05s cubic-bezier(.5,0,.2,1) 1.5s forwards}
-  .porte .seuil-scene{animation:seuil-zoom 1.15s cubic-bezier(.75,0,.85,.45) 2.6s forwards}
-  .porte .seuil-titre,.porte .seuil-note{animation:seuil-out .5s ease-in 2.6s forwards}
-  .porte .seuil{animation:seuil-fin .01s linear 3.8s forwards}
+  /* les traits se dessinent ; la porte, l'avancée et le fondu sont pilotés par landing.js sur une seule ligne de temps */
+  .porte .seuil-scene .t{animation:seuil-trait .9s cubic-bezier(.45,0,.2,1) both}
+  .porte .seuil-scene .t.d2{animation-delay:.1s}.porte .seuil-scene .t.d3{animation-delay:.2s}.porte .seuil-scene .t.d4{animation-delay:.3s}
+  .porte .seuil-scene{will-change:transform,opacity}
+  .porte .seuil{animation:seuil-out .4s ease-in 5s forwards} /* filet de sécurité si le script ne tourne pas */
+  .porte .lp{animation:lp-in 1s cubic-bezier(.2,.7,.2,1) 1.9s both}
 }
 @media (prefers-reduced-motion: reduce){ .porte .seuil{animation:seuil-out .7s ease-in 1.4s forwards} }
+@keyframes lp-in{from{opacity:.55;transform:scale(1.025)}to{opacity:1;transform:none}}
 @keyframes seuil-trait{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-@keyframes seuil-open{to{transform:scaleX(.12) skewY(-10deg)}}
-@keyframes seuil-zoom{0%{transform:scale(1);opacity:1}80%{opacity:1}100%{transform:scale(13);opacity:0}}
 @keyframes seuil-out{to{opacity:0;visibility:hidden}}
-@keyframes seuil-fin{to{visibility:hidden}}
 
 /* ================= Ton net et digne de confiance : tout en linéale, pas d'or, pas de promesse ================= */
 h1,.lp h1,.lp h2,legend,.maxv,.lp-price,.lp-plan h3,.lp-dialog h2,.intro strong,.legal h1,.legal h2{font-family:var(--display);font-weight:650;letter-spacing:-.02em}

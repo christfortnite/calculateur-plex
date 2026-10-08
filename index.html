@@ -8,7 +8,7 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%231c4a3c'/%3E%3Cpath d='M11 26V8.5h10V26' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=21">
+<link rel="stylesheet" href="style.css?v=22">
 <script>document.documentElement.classList.add("porte")</script>
 </head>
 <body class="home">
@@ -32,11 +32,11 @@
       <path class="t d4 fin" pathLength="1" d="M690 686 604 1000M910 686 996 1000"/>
       <path class="t d4 fin" pathLength="1" d="M440 700H470M440 352H470M455 352V700M520 720V750M1080 720V750M520 735H1080"/>
     </g>
-    <g class="seuil-battant">
-      <rect class="p" x="730" y="392" width="140" height="258"/>
-      <rect class="c" x="748" y="412" width="104" height="92"/>
-      <rect class="c" x="748" y="524" width="104" height="104"/>
-      <circle class="k" cx="852" cy="522" r="4.5"/>
+    <g class="seuil-battant" id="battant">
+      <polygon class="p" id="bt-p" points="730,392 870,392 870,650 730,650"/>
+      <polygon class="c" id="bt-c1" points="748,412 852,412 852,504 748,504"/>
+      <polygon class="c" id="bt-c2" points="748,524 852,524 852,628 748,628"/>
+      <circle class="k" id="bt-k" cx="852" cy="522" r="4.5"/>
     </g>
   </svg>
   <p class="seuil-titre">La Bonne Porte<span>Calculateur de plex</span></p>
@@ -144,6 +144,6 @@
   </div>
 </dialog>
 
-<script src="landing.js?v=21" defer></script>
+<script src="landing.js?v=22" defer></script>
 </body>
 </html>
