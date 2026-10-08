@@ -11,8 +11,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="style.css">
+<script>try{if(!sessionStorage.getItem("plex-porte")&&!matchMedia("(prefers-reduced-motion: reduce)").matches){document.documentElement.classList.add("porte");sessionStorage.setItem("plex-porte","1")}}catch(e){}</script>
 </head>
 <body>
+<div class="seuil" id="seuil" aria-hidden="true">
+  <p class="seuil-titre">Calculateur de plex</p>
+  <div class="seuil-cadre"><div class="seuil-battant"></div></div>
+  <p class="seuil-note">Toucher pour entrer</p>
+</div>
 <div class="wrap">
   <div class="top">
     <button type="button" class="brand" id="bHome" title="Revoir l'accueil">Calculateur de plex · Québec</button>

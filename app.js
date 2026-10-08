@@ -350,6 +350,11 @@
     var name=(p.nom||'immeuble').replace(/[^\wÀ-ÿ -]/g,'').trim().slice(0,60)||'immeuble';
     doc.save('Analyse '+name+'.pdf');
   }
+  // seuil d'entrée : on le retire une fois franchi, ou dès qu'on clique
+  var se=$('seuil');
+  if(se){var fin=function(){if(se.parentNode) se.parentNode.removeChild(se)};
+    se.addEventListener('animationend',function(e){if(e.animationName==='seuil-zoom') fin()});
+    se.addEventListener('click',fin); setTimeout(fin,4500)}
   try{$('intro').hidden=!!localStorage.getItem('plex-intro')}catch(e3){$('intro').hidden=false}
   fill();render();
   // Reçoit une annonce envoyée par l'extension de navigateur (même fenêtre seulement).
