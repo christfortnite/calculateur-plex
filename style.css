@@ -255,7 +255,6 @@ footer{color:var(--muted);font-size:13px;max-width:76ch}
 
 /* Accueil simplifié */
 .lp{gap:48px}
-.lp-card{align-items:flex-start}
 .lp-offre{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;border-top:1px solid var(--line);padding-top:24px}
 .lp-offre p{margin:0;color:var(--muted);max-width:60ch}
 .lp-offre strong{color:var(--ink)}

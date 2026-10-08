@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="style.css?v=9">
+<link rel="stylesheet" href="style.css?v=11">
 <script>document.documentElement.classList.add("porte")</script>
 </head>
 <body class="home">
@@ -58,6 +58,8 @@
   <nav class="lp-nav">
     <a class="lp-logo" href="index.html"><svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect width="32" height="32" rx="7" fill="var(--accent)"/><path d="M16 7 6 16h3v9h14v-9h3z" fill="var(--accent-ink)"/></svg><span class="lp-name">La Bonne Porte<small>Calculateur de plex</small></span></a>
     <div class="lp-links">
+      <a href="#fonctionnement">Fonctionnement</a>
+      <a href="#forfaits">Forfaits</a>
       <button type="button" data-soon="connexion">Se connecter</button>
       <a class="btn primary" href="calculateur.html">Commencer à calculer</a>
     </div>
@@ -65,7 +67,7 @@
 
   <header class="lp-hero">
     <div class="lp-hero-txt">
-      <h1>Sache si un plex se paie lui-même avant de faire une offre.</h1>
+      <h1>Ce plex est&#8209;il rentable&nbsp;?</h1>
       <p class="lp-lede">Entre le prix et les loyers. Tu vois ce qu'il te reste chaque mois.</p>
       <div class="lp-cta">
         <a class="btn primary big" href="calculateur.html">Commencer à calculer</a>
@@ -76,6 +78,12 @@
       <figcaption>Exemple : triplex à 595 000 $</figcaption>
       <p class="lp-card-big">268 $ <small>par mois</small></p>
       <p class="lp-card-sub">Ce qu'il reste une fois tout payé</p>
+      <dl>
+        <div><dt>Loyers</dt><dd>4 050 $ / mois</dd></div>
+        <div><dt>Hypothèque</dt><dd>2 801 $ / mois</dd></div>
+        <div><dt>Couverture de la dette</dt><dd>1,10</dd></div>
+        <div><dt>Prix maximum à offrir</dt><dd>604 000 $</dd></div>
+      </dl>
       <p class="lp-card-verdict">Rentable, mais peu de marge</p>
     </figure>
   </header>
@@ -88,9 +96,42 @@
     </ol>
   </section>
 
-  <section class="lp-sec lp-offre" id="forfaits">
-    <p><strong>Gratuit, sans compte.</strong> Un forfait Abonné avec compte et sauvegarde en ligne est à venir.</p>
-    <button type="button" class="btn" data-soon="abonnement">M'abonner</button>
+  <section class="lp-sec">
+    <h2>Ce que tu obtiens</h2>
+    <ul class="lp-feats">
+      <li><strong>Le cashflow réel</strong><span>Ce qu'il te reste par mois.</span></li>
+      <li><strong>Le prix maximum à offrir</strong><span>Pour savoir quoi offrir.</span></li>
+      <li><strong>Neuf scénarios</strong><span>Et si le taux monte ?</span></li>
+      <li><strong>Les frais du Québec</strong><span>Taxe de bienvenue et prime SCHL.</span></li>
+      <li><strong>Le marché du secteur</strong><span>Loyers moyens de ton coin.</span></li>
+      <li><strong>La comparaison</strong><span>Tes immeubles côte à côte.</span></li>
+    </ul>
+  </section>
+
+  <section class="lp-sec" id="forfaits">
+    <h2>Forfaits</h2>
+    <div class="lp-plans">
+      <article class="lp-plan">
+        <h3>Gratuit</h3>
+        <p class="lp-price">0 $</p>
+        <ul>
+          <li>Tout le calculateur</li>
+          <li>Scénarios et rapport PDF</li>
+          <li>Sauvegarde dans ce navigateur</li>
+        </ul>
+        <a class="btn primary" href="calculateur.html">Commencer à calculer</a>
+      </article>
+      <article class="lp-plan soon">
+        <h3>Abonné <span class="lp-tag">À venir</span></h3>
+        <p class="lp-price">Prix à venir</p>
+        <ul>
+          <li>Un compte, tes immeubles partout</li>
+          <li>Photos et documents</li>
+          <li>Annonce analysée en un clic</li>
+        </ul>
+        <button type="button" class="btn" data-soon="abonnement">M'abonner</button>
+      </article>
+    </div>
   </section>
 
   <footer class="lp-foot">
@@ -107,6 +148,6 @@
   </div>
 </dialog>
 
-<script src="landing.js?v=9" defer></script>
+<script src="landing.js?v=11" defer></script>
 </body>
 </html>
