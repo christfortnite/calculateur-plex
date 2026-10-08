@@ -9,7 +9,7 @@ Site statique : trois fichiers (`index.html`, `style.css`, `app.js`), aucune ins
 1. Sur github.com, crée un dépôt public nommé `calculateur-plex`.
 2. Dans le dépôt, clique « Add file » puis « Upload files », glisse tout le contenu de ce dossier et clique « Commit changes ».
 3. Va dans Settings, puis Pages. Sous « Branch », choisis `main` et le dossier `/ (root)`, puis Save.
-4. Après une minute ou deux, le site est en ligne à `https://TON-NOM.github.io/calculateur-plex/`.
+4. Après une minute ou deux, le site est en ligne à `https://christfortnite.github.io/calculateur-plex/`.
 
 Pour un nom de domaine à toi, achète-le chez un registraire et inscris-le dans Settings, Pages, « Custom domain ».
 
@@ -17,7 +17,7 @@ Pour un nom de domaine à toi, achète-le chez un registraire et inscris-le dans
 
 Le dossier `extension/` contient une extension Chrome. Sur une annonce Centris, un clic lit la fiche affichée et l'ouvre dans le calculateur, sans collage.
 
-1. Dans `extension/background.js`, remplace `TON-NOM` par ton nom d'utilisateur GitHub.
+1. L'adresse du site est déjà inscrite dans `extension/background.js`.
 2. Dans Chrome, ouvre `chrome://extensions`, active le mode développeur, clique « Charger l'extension non empaquetée » et choisis le dossier `extension`.
 
 L'extension agit seulement quand on clique dessus, sur la page affichée. Elle ne parcourt pas Centris et n'envoie rien à un serveur.

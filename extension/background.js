@@ -1,5 +1,5 @@
-// Adresse du Calculateur de plex en ligne. Remplace TON-NOM par ton nom d'utilisateur GitHub.
-const SITE = "https://TON-NOM.github.io/calculateur-plex/";
+// Adresse du Calculateur de plex en ligne.
+const SITE = "https://christfortnite.github.io/calculateur-plex/";
 
 // S'exécute dans la page de l'annonce, seulement quand tu cliques sur l'icône.
 async function lireAnnonce() {
