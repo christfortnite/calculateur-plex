@@ -1,5 +1,4 @@
 /* La Bonne Porte — feuille de style partagée (accueil, calculateur, pages légales) */
-@font-face{font-family:"Newsreader";src:url("fonts/newsreader.woff2") format("woff2");font-weight:200 800;font-display:swap}
 @font-face{font-family:"Hanken Grotesk";src:url("fonts/hanken-grotesk.woff2") format("woff2");font-weight:100 900;font-display:swap}
 html{-webkit-text-size-adjust:100%}
 body{margin:0}
@@ -12,7 +11,7 @@ img{max-width:100%}
   --accent:#1c4a3c; --accent-ink:#ffffff; --glow:#a8843f;
   --good:#1f6b4a; --warn:#8f6410; --bad:#a3372b;
   --seg-vac:#a3ada8; --seg-dep:#b8924a; --seg-int:#6a5a8c; --seg-cap:#3d6f8f; --seg-cf:#1f6b4a;
-  --display:"Newsreader",Georgia,"Times New Roman",serif;
+  --display:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --mono:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
 }
@@ -282,17 +281,21 @@ footer a,.lp-foot a,.legal a{color:inherit;text-underline-offset:3px}
 .src td:first-child{font-weight:600}
 .mention{font-size:13px;color:var(--muted);max-width:76ch}
 
-/* Seuil : une élévation tracée au trait, la porte s'ouvre sur le site, on entre. Ambiance fixe, voulue. */
+/* Seuil : une élévation tracée au trait sur fond clair, la porte s'ouvre sur le site, on entre. */
 .seuil{display:none}
 .porte .seuil{position:fixed;inset:0;z-index:50;display:block;overflow:hidden;cursor:pointer}
 .seuil-scene{position:absolute;inset:0;width:100%;height:100%;display:block;transform-origin:50% 52.1%}
-.seuil-scene .t{fill:none;stroke:#c2a468;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
-.seuil-scene .t.fin{stroke-width:1;opacity:.55}
+.seuil-scene .fond{fill:var(--bg)}
+.seuil-scene .t{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:0}
+.seuil-scene .t.fin{stroke-width:1;opacity:.4}
 .seuil-battant{transform-box:fill-box;transform-origin:left center}
-.seuil-titre,.seuil-note{position:absolute;left:0;right:0;margin:0;text-align:center;color:#ece7da;padding-inline:16px}
-.seuil-titre{bottom:11%;font-family:var(--display);font-weight:400;font-size:clamp(30px,4.6vw,50px);letter-spacing:-.01em}
-.seuil-titre span{display:block;font-family:var(--body);font-weight:500;font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:#c2a468;margin-top:10px}
-.seuil-note{bottom:4.5%;font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.55}
+.seuil-battant .p{fill:var(--accent);stroke:var(--accent);stroke-width:1.6}
+.seuil-battant .c{fill:none;stroke:var(--accent-ink);stroke-width:1;opacity:.45}
+.seuil-battant .k{fill:var(--accent-ink)}
+.seuil-titre,.seuil-note{position:absolute;left:0;right:0;margin:0;text-align:center;color:var(--ink);padding-inline:16px}
+.seuil-titre{bottom:11%;font-family:var(--display);font-weight:650;font-size:clamp(28px,4.2vw,44px);letter-spacing:-.02em}
+.seuil-titre span{display:block;font-family:var(--body);font-weight:500;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.seuil-note{bottom:4.5%;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
 @media (prefers-reduced-motion: no-preference){
   .porte .seuil-scene .t{animation:seuil-trait 1.15s cubic-bezier(.6,0,.2,1) both}
   .porte .seuil-scene .t.d2{animation-delay:.18s}.porte .seuil-scene .t.d3{animation-delay:.36s}.porte .seuil-scene .t.d4{animation-delay:.54s}
@@ -307,3 +310,21 @@ footer a,.lp-foot a,.legal a{color:inherit;text-underline-offset:3px}
 @keyframes seuil-zoom{0%{transform:scale(1);opacity:1}80%{opacity:1}100%{transform:scale(13);opacity:0}}
 @keyframes seuil-out{to{opacity:0;visibility:hidden}}
 @keyframes seuil-fin{to{visibility:hidden}}
+
+/* ================= Ton net et digne de confiance : tout en linéale, pas d'or, pas de promesse ================= */
+h1,.lp h1,.lp h2,legend,.maxv,.lp-price,.lp-plan h3,.lp-dialog h2,.intro strong,.legal h1,.legal h2{font-family:var(--display);font-weight:650;letter-spacing:-.02em}
+.tile .v,.price b,.lp-card-big{font-family:var(--body);font-weight:650;letter-spacing:-.02em}
+.lp-logo{font-family:var(--body);font-weight:700;font-size:18px;letter-spacing:-.01em}
+.lp h1{font-size:clamp(36px,5.4vw,58px);line-height:1.04}
+.lp h2{font-size:clamp(24px,3vw,30px)}
+.resume p{font-family:var(--body);font-size:18px;line-height:1.5}
+.lp-steps li::before{font-family:var(--body);font-weight:650;font-size:15px;color:var(--muted);content:"Étape " counter(pas);letter-spacing:.08em;text-transform:uppercase}
+.lp-steps strong,.lp-feats strong{font-family:var(--body);font-weight:650;font-size:17px}
+.lp-card-big{font-size:38px;color:var(--ink);margin-top:2px}
+.lp-card-lbl{margin:10px 0 0;font-size:13px;color:var(--muted)}
+.lp-card-verdict{color:var(--warn)}
+.lp-trust{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px;color:var(--muted);font-size:14px}
+.lp-trust li{display:flex;align-items:center;gap:8px}
+.lp-trust li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+.lp-cta{flex-direction:column;align-items:flex-start;gap:18px}
+.lp-links button{color:var(--muted)}

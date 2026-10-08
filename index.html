@@ -7,8 +7,8 @@
 <meta name="description" content="Analyse la rentabilité d'un duplex, triplex ou multiplex au Québec : cashflow, couverture de la dette, taxe de bienvenue, prime SCHL, scénarios et prix maximum à offrir.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%231c4a3c'/%3E%3Cpath d='M11 26V8.5h10V26' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
-<link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=20">
+<link rel="preload" href="fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=21">
 <script>document.documentElement.classList.add("porte")</script>
 </head>
 <body class="home">
@@ -16,7 +16,7 @@
   <svg class="seuil-scene" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
     <defs><mask id="trou"><rect width="1600" height="1000" fill="#fff"/><rect x="730" y="392" width="140" height="258" fill="#000"/></mask></defs>
     <g mask="url(#trou)">
-      <rect width="1600" height="1000" fill="#0e1613"/>
+      <rect class="fond" width="1600" height="1000"/>
       <path class="t" pathLength="1" d="M140 650H1460"/>
       <path class="t d2" pathLength="1" d="M520 650V352H1080V650"/>
       <path class="t d2" pathLength="1" d="M470 352 800 140 1130 352Z"/>
@@ -33,10 +33,10 @@
       <path class="t d4 fin" pathLength="1" d="M440 700H470M440 352H470M455 352V700M520 720V750M1080 720V750M520 735H1080"/>
     </g>
     <g class="seuil-battant">
-      <rect x="730" y="392" width="140" height="258" fill="#15201c" stroke="#c2a468" stroke-width="1.6"/>
-      <rect x="748" y="412" width="104" height="92" fill="none" stroke="#c2a468" stroke-width="1" opacity=".6"/>
-      <rect x="748" y="524" width="104" height="104" fill="none" stroke="#c2a468" stroke-width="1" opacity=".6"/>
-      <circle cx="852" cy="522" r="4.5" fill="#c2a468"/>
+      <rect class="p" x="730" y="392" width="140" height="258"/>
+      <rect class="c" x="748" y="412" width="104" height="92"/>
+      <rect class="c" x="748" y="524" width="104" height="104"/>
+      <circle class="k" cx="852" cy="522" r="4.5"/>
     </g>
   </svg>
   <p class="seuil-titre">La Bonne Porte<span>Calculateur de plex</span></p>
@@ -49,7 +49,7 @@
     <div class="lp-links">
       <a href="#fonctionnement">Fonctionnement</a>
       <a href="#forfaits">Forfaits</a>
-      <button type="button" data-soon="connexion">Se connecter</button>
+      <button type="button" data-soon="connexion">Connexion (bientôt)</button>
       <a class="btn primary" href="calculateur.html">Commencer à calculer</a>
     </div>
   </nav>
@@ -60,20 +60,26 @@
       <p class="lp-lede">Entre le prix et les loyers. Tu vois ce qu'il te reste chaque mois.</p>
       <div class="lp-cta">
         <a class="btn primary big" href="calculateur.html">Commencer à calculer</a>
-        <span class="lp-free">Gratuit, sans compte.</span>
+        <ul class="lp-trust">
+          <li>Gratuit, sans compte</li>
+          <li>Aucune donnée personnelle collectée</li>
+          <li>Sources publiques citées</li>
+          <li>Montre aussi quand un immeuble perd de l'argent</li>
+        </ul>
       </div>
     </div>
     <figure class="lp-card" aria-label="Exemple de résultat">
-      <figcaption>Exemple : triplex à 595 000 $</figcaption>
+      <figcaption>Exemple d'analyse · triplex fictif à 595 000 $</figcaption>
+      <p class="lp-card-lbl">Cashflow estimé</p>
       <p class="lp-card-big">268 $ <small>par mois</small></p>
-      <p class="lp-card-sub">Ce qu'il reste une fois tout payé</p>
+      <p class="lp-card-sub">Une fois les dépenses et l'hypothèque payées</p>
       <dl>
         <div><dt>Loyers</dt><dd>4 050 $ / mois</dd></div>
         <div><dt>Hypothèque</dt><dd>2 801 $ / mois</dd></div>
         <div><dt>Couverture de la dette</dt><dd>1,10</dd></div>
         <div><dt>Prix maximum à offrir</dt><dd>604 000 $</dd></div>
       </dl>
-      <p class="lp-card-verdict">Rentable, mais peu de marge</p>
+      <p class="lp-card-verdict">Verdict : serré, peu de marge</p>
     </figure>
   </header>
 
@@ -112,13 +118,13 @@
       </article>
       <article class="lp-plan soon">
         <h3>Abonné <span class="lp-tag">À venir</span></h3>
-        <p class="lp-price">Prix à venir</p>
+        <p class="lp-price">Pas encore offert</p>
         <ul>
           <li>Un compte, tes immeubles partout</li>
           <li>Photos et documents</li>
           <li>Annonce analysée en un clic</li>
         </ul>
-        <button type="button" class="btn" data-soon="abonnement">M'abonner</button>
+        <button type="button" class="btn" data-soon="abonnement">En savoir plus</button>
       </article>
     </div>
   </section>
@@ -138,6 +144,6 @@
   </div>
 </dialog>
 
-<script src="landing.js?v=20" defer></script>
+<script src="landing.js?v=21" defer></script>
 </body>
 </html>
