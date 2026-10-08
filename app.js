@@ -349,7 +349,9 @@
     var name=(p.nom||'immeuble').replace(/[^\wÀ-ÿ -]/g,'').trim().slice(0,60)||'immeuble';
     doc.save('Analyse '+name+'.pdf');
   }
-  try{$('intro').hidden=!!localStorage.getItem('plex-intro')}catch(e3){$('intro').hidden=false}
+  // l'accueil ne s'affiche qu'aux nouveaux visiteurs : jamais à quelqu'un qui a déjà ses immeubles
+  var deja=S.list.some(function(p){return !p.ex});
+  try{$('intro').hidden=deja||!!localStorage.getItem('plex-intro')}catch(e3){$('intro').hidden=deja}
   fill();render();
   // Reçoit une annonce envoyée par l'extension de navigateur (même fenêtre seulement).
   window.addEventListener('message',function(e){
