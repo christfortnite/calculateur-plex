@@ -1,8 +1,8 @@
-# Calculateur de plex
+# La Bonne Porte — calculateur de plex
 
 Outil d'analyse de rentabilité d'un immeuble locatif au Québec : cashflow, couverture de la dette, taxe de bienvenue, prime SCHL, scénarios, amortissement, comparaison d'immeubles et rapport PDF.
 
-Site statique : trois fichiers (`index.html`, `style.css`, `app.js`), aucune installation, aucun serveur. Les immeubles sont gardés dans le navigateur du visiteur.
+Site statique, sans installation ni serveur : `index.html` (page d'accueil, avec `landing.js`), `calculateur.html` (l'outil, avec `app.js`) et `style.css` (partagé). La connexion et l'abonnement affichés sur l'accueil ne sont pas encore branchés. Les immeubles sont gardés dans le navigateur du visiteur.
 
 ## Mettre le site en ligne avec GitHub Pages
 

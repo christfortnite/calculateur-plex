@@ -1,5 +1,5 @@
 // Adresse du Calculateur de plex en ligne.
-const SITE = "https://christfortnite.github.io/calculateur-plex/";
+const SITE = "https://christfortnite.github.io/calculateur-plex/calculateur.html";
 
 // S'exécute dans la page de l'annonce, seulement quand tu cliques sur l'icône.
 async function lireAnnonce() {

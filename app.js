@@ -277,8 +277,7 @@
   function disarm(){delArmed=0;$('bDel').textContent='Supprimer'}
   document.addEventListener('click',function(e){
     var t=e.target;
-    if(t.id==='bHome'){$('intro').hidden=false;window.scrollTo(0,0)}
-    else if(t.dataset&&t.dataset.go){tab(t.dataset.go);window.scrollTo(0,0)}
+    if(t.dataset&&t.dataset.go){tab(t.dataset.go);window.scrollTo(0,0)}
     else if(t.id==='bStart'||t.id==='bIntroX'){$('intro').hidden=true;try{localStorage.setItem('plex-intro','1')}catch(e2){}
       if(t.id==='bStart'){S.list.push({nom:'Nouvel immeuble',ville:'',ex:0,note:'',files:[],v:Object.assign({},BLANK)});S.cur=S.list.length-1;fill();render();tab('donnees')}}
     else if(t.id==='useVac'){cur().v.vac=parseFloat(t.dataset.v);cur().ex=0;fill();render()}
@@ -346,15 +345,10 @@
     if(p.note){h2('Notes');doc.setFont('helvetica','normal');doc.setFontSize(10.5);doc.setTextColor(21,35,45);
       p.note.split(/\n/).forEach(function(par){var ls=doc.splitTextToSize(clean(par)||' ',W-2*mx);ls.forEach(function(l){need(15);doc.text(l,mx,y);y+=14})})}
     need(40);y+=14;doc.setFontSize(8.5);doc.setTextColor(90,107,118);
-    doc.text(doc.splitTextToSize(clean('Produit le '+new Date().toLocaleDateString('fr-CA')+' avec le Calculateur de plex. Les chiffres reposent sur les hypothèses entrées par l\'utilisateur. Aide à la réflexion, pas un conseil financier.'),W-2*mx),mx,y);
+    doc.text(doc.splitTextToSize(clean('Produit le '+new Date().toLocaleDateString('fr-CA')+' avec La Bonne Porte, calculateur de plex. Les chiffres reposent sur les hypothèses entrées par l\'utilisateur. Aide à la réflexion, pas un conseil financier.'),W-2*mx),mx,y);
     var name=(p.nom||'immeuble').replace(/[^\wÀ-ÿ -]/g,'').trim().slice(0,60)||'immeuble';
     doc.save('Analyse '+name+'.pdf');
   }
-  // seuil d'entrée : on le retire une fois franchi, ou dès qu'on clique
-  var se=$('seuil');
-  if(se){var fin=function(){if(se.parentNode) se.parentNode.removeChild(se)};
-    se.addEventListener('animationend',function(e){if(e.animationName==='seuil-zoom') fin()});
-    se.addEventListener('click',fin); setTimeout(fin,4500)}
   try{$('intro').hidden=!!localStorage.getItem('plex-intro')}catch(e3){$('intro').hidden=false}
   fill();render();
   // Reçoit une annonce envoyée par l'extension de navigateur (même fenêtre seulement).
