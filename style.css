@@ -9,7 +9,7 @@ img{max-width:100%}
   --bg:#edf1f3; --surface:#ffffff; --ink:#15232d; --muted:#5a6b76; --line:#d3dce1; --tint:#e3eeee;
   --accent:#0f5c6e; --accent-ink:#ffffff;
   --good:#1d7a4f; --warn:#a56a00; --bad:#b3372c;
-  --seg-vac:#9aa9b2; --seg-dep:#c98a2b; --seg-int:#7c5aa6; --seg-cap:#3f7fb5; --seg-cf:#1d7a4f;
+  --glow:#f4c95d; --seg-vac:#9aa9b2; --seg-dep:#c98a2b; --seg-int:#7c5aa6; --seg-cap:#3f7fb5; --seg-cf:#1d7a4f;
   --display:"Bricolage Grotesque","Trebuchet MS",sans-serif;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
@@ -18,19 +18,20 @@ img{max-width:100%}
   --bg:#0f181e; --surface:#18242c; --ink:#e7eef2; --muted:#93a4ae; --line:#2c3b45; --tint:#1f3238;
   --accent:#5cc0d3; --accent-ink:#06222a;
   --good:#5fcf97; --warn:#e6b450; --bad:#f08a7e;
-  --seg-vac:#6f7f89; --seg-dep:#e0a84a; --seg-int:#a98bd0; --seg-cap:#6aa9dc; --seg-cf:#5fcf97;
+  --glow:#f4c95d; --seg-vac:#6f7f89; --seg-dep:#e0a84a; --seg-int:#a98bd0; --seg-cap:#6aa9dc; --seg-cf:#5fcf97;
   color-scheme:dark } }
 :root[data-theme="dark"]{
   --bg:#0f181e; --surface:#18242c; --ink:#e7eef2; --muted:#93a4ae; --line:#2c3b45; --tint:#1f3238;
   --accent:#5cc0d3; --accent-ink:#06222a;
   --good:#5fcf97; --warn:#e6b450; --bad:#f08a7e;
-  --seg-vac:#6f7f89; --seg-dep:#e0a84a; --seg-int:#a98bd0; --seg-cap:#6aa9dc; --seg-cf:#5fcf97;
+  --glow:#f4c95d; --seg-vac:#6f7f89; --seg-dep:#e0a84a; --seg-int:#a98bd0; --seg-cap:#6aa9dc; --seg-cf:#5fcf97;
   color-scheme:dark }
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
 .wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:20px 48px;display:flex;flex-direction:column;gap:18px}
 .top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px}
-.brand{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.brand{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:transparent;border:0;padding:0;border-radius:0;font-weight:400}
+.brand:hover{color:var(--accent)}
 .actions{display:flex;flex-wrap:wrap;gap:8px}
 button{font:inherit;font-size:14px;font-weight:500;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:7px 13px;border-radius:7px;cursor:pointer}
 button:hover{border-color:var(--accent)}
@@ -136,3 +137,27 @@ footer{color:var(--muted);font-size:13px;max-width:76ch}
 .lex dt{font-weight:600}
 .lex dd{margin:0;color:var(--muted)}
 @media (max-width:520px){.lex dl{grid-template-columns:minmax(0,1fr);gap:2px}.lex dd{margin-bottom:8px}}
+
+/* Accueil animé : la porte du triplex s'ouvre, puis les choix apparaissent */
+.intro{justify-content:flex-start}
+.intro-txt{flex:1 1 260px;min-width:0}
+.plex{width:150px;max-width:38vw;flex:none;height:auto}
+.plex .win{fill:var(--surface);opacity:.35}
+.plex .door{transform-box:fill-box;transform-origin:left center}
+.plex .spill{opacity:.5}
+.plex .door{transform:scaleX(.16) skewY(-9deg)}
+.plex .win{fill:var(--glow);opacity:.95}
+@media (prefers-reduced-motion: no-preference){
+  .plex .door{animation:plex-door 1s cubic-bezier(.6,0,.2,1) .35s both}
+  .plex .spill{animation:plex-fade .6s ease-out .9s both}
+  .plex .win{animation:plex-lit .5s ease-out both}
+  .plex .w5{animation-delay:1.1s}.plex .w3{animation-delay:1.25s}.plex .w4{animation-delay:1.4s}.plex .w1{animation-delay:1.55s}.plex .w2{animation-delay:1.7s}
+  .intro-txt{animation:plex-rise .5s ease-out .15s both}
+  .intro-act button{animation:plex-rise .45s ease-out both}
+  .intro-act button:nth-child(1){animation-delay:1.35s}
+  .intro-act button:nth-child(2){animation-delay:1.5s}
+}
+@keyframes plex-door{from{transform:none}to{transform:scaleX(.16) skewY(-9deg)}}
+@keyframes plex-fade{from{opacity:0}to{opacity:.5}}
+@keyframes plex-lit{from{fill:var(--surface);opacity:.35}to{fill:var(--glow);opacity:.95}}
+@keyframes plex-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}

@@ -15,7 +15,7 @@
 <body>
 <div class="wrap">
   <div class="top">
-    <span class="brand">Calculateur de plex · Québec</span>
+    <button type="button" class="brand" id="bHome" title="Revoir l'accueil">Calculateur de plex · Québec</button>
     <div class="actions">
       <button type="button" id="bNew" class="primary">Nouvel immeuble</button>
       <button type="button" id="bCopy">Dupliquer</button>
@@ -25,7 +25,25 @@
   </div>
 
   <section class="intro" id="intro" hidden>
-    <div>
+    <svg class="plex" viewBox="0 0 200 184" role="img" aria-label="Un triplex dont la porte s'ouvre">
+      <rect x="34" y="18" width="132" height="8" rx="2" fill="var(--ink)"/>
+      <rect x="40" y="26" width="120" height="140" fill="var(--accent)"/>
+      <rect class="win w1" x="56" y="40" width="30" height="27" rx="2"/>
+      <rect class="win w2" x="114" y="40" width="30" height="27" rx="2"/>
+      <rect class="win w3" x="56" y="82" width="30" height="27" rx="2"/>
+      <rect class="win w4" x="114" y="82" width="30" height="27" rx="2"/>
+      <rect class="win w5" x="56" y="124" width="30" height="27" rx="2"/>
+      <rect x="40" y="73" width="120" height="3" fill="var(--ink)" opacity=".35"/>
+      <rect x="40" y="115" width="120" height="3" fill="var(--ink)" opacity=".35"/>
+      <rect x="112" y="120" width="32" height="46" fill="var(--glow)"/>
+      <polygon class="spill" points="112,166 144,166 170,182 96,182" fill="var(--glow)"/>
+      <g class="door">
+        <rect x="112" y="120" width="32" height="46" fill="var(--ink)"/>
+        <circle cx="138" cy="144" r="2.2" fill="var(--glow)"/>
+      </g>
+      <rect x="18" y="166" width="164" height="3" rx="1.5" fill="var(--ink)"/>
+    </svg>
+    <div class="intro-txt">
       <strong>Est-ce que cet immeuble se paie lui-même ?</strong>
       <ol>
         <li>Entre le prix, les loyers et les taxes, ou colle une annonce Centris.</li>

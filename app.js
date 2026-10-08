@@ -277,7 +277,8 @@
   function disarm(){delArmed=0;$('bDel').textContent='Supprimer'}
   document.addEventListener('click',function(e){
     var t=e.target;
-    if(t.dataset&&t.dataset.go){tab(t.dataset.go);window.scrollTo(0,0)}
+    if(t.id==='bHome'){$('intro').hidden=false;window.scrollTo(0,0)}
+    else if(t.dataset&&t.dataset.go){tab(t.dataset.go);window.scrollTo(0,0)}
     else if(t.id==='bStart'||t.id==='bIntroX'){$('intro').hidden=true;try{localStorage.setItem('plex-intro','1')}catch(e2){}
       if(t.id==='bStart'){S.list.push({nom:'Nouvel immeuble',ville:'',ex:0,note:'',files:[],v:Object.assign({},BLANK)});S.cur=S.list.length-1;fill();render();tab('donnees')}}
     else if(t.id==='useVac'){cur().v.vac=parseFloat(t.dataset.v);cur().ex=0;fill();render()}
