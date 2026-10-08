@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Calculateur de plex — rentabilité d'un immeuble locatif au Québec</title>
+<meta name="description" content="Analyse la rentabilité d'un duplex, triplex ou multiplex au Québec : cashflow, couverture de la dette, taxe de bienvenue, prime SCHL, scénarios et prix maximum à offrir.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f5c6e'/%3E%3Cpath d='M16 7 6 16h3v9h14v-9h3z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <span class="brand">Calculateur de plex · Québec</span>
+    <div class="actions">
+      <button type="button" id="bNew" class="primary">Nouvel immeuble</button>
+      <button type="button" id="bCopy">Dupliquer</button>
+      <button type="button" id="bRep">Rapport PDF</button>
+      <button type="button" id="bDel" class="danger">Supprimer</button>
+    </div>
+  </div>
+
+  <header class="head">
+    <h1 id="hName">–</h1>
+    <div class="chips" id="hChips"></div>
+    <div class="price"><b id="hPrix">–</b><span id="hMeta"></span><a id="hMap" target="_blank" rel="noopener">Voir sur la carte</a></div>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button type="button" role="tab" data-tab="analyse" aria-selected="true">Analyse</button>
+    <button type="button" role="tab" data-tab="donnees" aria-selected="false">Données</button>
+    <button type="button" role="tab" data-tab="scenarios" aria-selected="false">Scénarios</button>
+    <button type="button" role="tab" data-tab="amort" aria-selected="false">Amortissement</button>
+    <button type="button" role="tab" data-tab="secteur" aria-selected="false">Secteur</button>
+    <button type="button" role="tab" data-tab="notes" aria-selected="false">Notes</button>
+    <button type="button" role="tab" data-tab="comparer" aria-selected="false">Comparer</button>
+  </div>
+
+  <section class="panel" id="p-analyse" aria-live="polite">
+    <div class="tiles" id="tiles"></div>
+    <div class="cols">
+      <div class="card"><h2>Revenus et dépenses</h2><div class="rows" id="rev"></div></div>
+      <div class="card"><h2>Financement</h2><div class="rows" id="fin"></div></div>
+    </div>
+    <div class="cols">
+      <div class="card">
+        <h2>Où va chaque dollar de loyer</h2>
+        <div class="bar" id="bar"></div>
+        <div class="legend" id="legend"></div>
+      </div>
+      <div class="card">
+        <h2>Prix maximum à offrir</h2>
+        <div class="f" style="max-width:260px"><label for="cible">Cashflow visé par porte</label><div class="in"><input id="cible" type="number" inputmode="decimal" step="10"><span>$ / mois</span></div></div>
+        <div class="maxv" id="pmax">–</div>
+        <div class="sub" id="pmaxNote"></div>
+      </div>
+    </div>
+    <div class="card"><h2>Rendement</h2><div class="rows" id="rend"></div></div>
+  </section>
+
+  <section class="panel" id="p-donnees" hidden>
+    <form id="form" autocomplete="off">
+      <fieldset>
+        <legend>Partir d'une annonce Centris</legend>
+        <div class="f wide">
+          <ol class="steps">
+            <li><a id="aCentris" href="https://www.centris.ca/fr/plex~a-vendre" target="_blank" rel="noopener">Ouvrir les plex à vendre sur Centris</a> et choisir une annonce.</li>
+            <li>Sur la page de l'annonce, cliquer « Voir plus » sous Détails financiers pour afficher les taxes.</li>
+            <li>Tout sélectionner puis copier (Cmd+A, Cmd+C sur Mac ; Ctrl+A, Ctrl+C sur PC).</li>
+            <li>Revenir ici et coller dans la case : les champs se remplissent tout seuls.</li>
+          </ol>
+          <label for="paste">Texte de l'annonce</label>
+          <textarea id="paste" placeholder="Ex. : Triplex à vendre… Prix demandé 595 000 $… Revenus bruts potentiels 48 600 $… Taxes municipales (2026) 4 200 $…"></textarea>
+        </div>
+        <div class="f wide" style="flex-direction:row;flex-wrap:wrap;align-items:center;gap:12px">
+          <button type="button" id="bParse" class="primary">Remplir les champs</button>
+          <span class="sub" id="parseMsg">L'outil repère le prix, les logements, les revenus et les taxes. Vérifie toujours les chiffres remplis.</span>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Immeuble</legend>
+        <div class="f half"><label for="nom">Nom ou adresse</label><div class="in"><input id="nom" type="text" maxlength="80"></div></div>
+        <div class="f half"><label for="ville">Ville ou secteur</label><div class="in"><select id="ville"></select></div></div>
+        <div class="f"><label for="prix">Prix d'achat</label><div class="in"><input id="prix" type="number" inputmode="decimal" min="0" step="1000"><span>$</span></div></div>
+        <div class="f"><label for="portes">Logements</label><div class="in"><input id="portes" type="number" inputmode="numeric" min="1" step="1"><span>portes</span></div></div>
+        <div class="f"><label for="frais">Notaire, inspection, autres</label><div class="in"><input id="frais" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
+        <div class="f"><label for="app">Prise de valeur prévue</label><div class="in"><input id="app" type="number" inputmode="decimal" step="0.5"><span>% / an</span></div><span class="hint">Hypothèse, jamais garantie</span></div>
+        <div class="f"><label for="imp">Ton taux d'impôt marginal</label><div class="in"><input id="imp" type="number" inputmode="decimal" min="0" max="60" step="1"><span>%</span></div><span class="hint">0 pour ignorer l'impôt</span></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Financement</legend>
+        <div class="f wide"><label for="typ">Type de prêt, pour la prime de la SCHL</label><div class="in"><select id="typ">
+          <option value="0">1 à 4 logements, j'habite l'immeuble</option>
+          <option value="1">2 à 4 logements, je ne l'habite pas</option>
+          <option value="2">5 logements et plus, prêt ordinaire</option>
+          <option value="3">5 logements et plus, APH Select 50 points</option>
+          <option value="4">5 logements et plus, APH Select 70 points</option>
+          <option value="5">5 logements et plus, APH Select 100 points</option>
+        </select></div><span class="hint" id="primeMsg">Choisis le type, puis clique sur « Calculer selon la grille SCHL » sous la prime.</span></div>
+        <div class="f"><label for="mise">Mise de fonds</label><div class="in"><input id="mise" type="number" inputmode="decimal" min="0" max="100" step="1"><span>%</span></div></div>
+        <div class="f"><label for="prime">Prime d'assurance prêt</label><div class="in"><input id="prime" type="number" inputmode="decimal" min="0" step="0.1"><span>% du prêt</span></div><span class="hint">S'ajoute au prêt. <button type="button" id="bPrime" style="padding:2px 8px;font-size:12px">Calculer selon la grille SCHL</button></span></div>
+        <div class="f"><label for="taux">Taux hypothécaire</label><div class="in"><input id="taux" type="number" inputmode="decimal" min="0" step="0.01"><span>%</span></div><span class="hint">5 ans fixe sans assurance prêt : environ 5,12 % au 7 oct. 2026</span></div>
+        <div class="f"><label for="amort">Amortissement</label><div class="in"><input id="amort" type="number" inputmode="decimal" min="1" max="50" step="1"><span>ans</span></div></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Revenus</legend>
+        <div class="f"><label for="loyers">Total des loyers</label><div class="in"><input id="loyers" type="number" inputmode="decimal" min="0" step="10"><span>$ / mois</span></div></div>
+        <div class="f"><label for="autres">Autres revenus</label><div class="in"><input id="autres" type="number" inputmode="decimal" min="0" step="10"><span>$ / mois</span></div></div>
+        <div class="f half"><label for="vac">Inoccupation et mauvaises créances</label><div class="in"><input id="vac" type="number" inputmode="decimal" min="0" max="100" step="0.5"><span>%</span></div></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Dépenses annuelles</legend>
+        <div class="f"><label for="tmun">Taxes municipales</label><div class="in"><input id="tmun" type="number" inputmode="decimal" min="0" step="50"><span>$</span></div><span class="hint"><button type="button" id="bTax" style="padding:2px 8px;font-size:12px">Estimer selon la ville</button> <span id="taxMsg"></span></span></div>
+        <div class="f"><label for="tsco">Taxes scolaires</label><div class="in"><input id="tsco" type="number" inputmode="decimal" min="0" step="10"><span>$</span></div></div>
+        <div class="f"><label for="ass">Assurances</label><div class="in"><input id="ass" type="number" inputmode="decimal" min="0" step="50"><span>$</span></div></div>
+        <div class="f"><label for="div">Déneigement, énergie, divers</label><div class="in"><input id="div" type="number" inputmode="decimal" min="0" step="50"><span>$</span></div></div>
+        <div class="f half"><label for="ent">Entretien et réparations</label><div class="in"><input id="ent" type="number" inputmode="decimal" min="0" max="100" step="0.5"><span>% des loyers</span></div></div>
+        <div class="f half"><label for="ges">Gestion</label><div class="in"><input id="ges" type="number" inputmode="decimal" min="0" max="100" step="0.5"><span>% des loyers</span></div><span class="hint">0 si tu gères toi-même</span></div>
+      </fieldset>
+    </form>
+  </section>
+
+  <section class="panel" id="p-scenarios" hidden>
+    <div class="card">
+      <h2>Et si les choses tournaient autrement</h2>
+      <div class="scroll"><table><thead><tr><th>Scénario</th><th>Cashflow / mois</th><th>Écart</th><th>Couverture</th><th>Verdict</th></tr></thead><tbody id="scen"></tbody></table></div>
+      <span class="sub">Chaque ligne change une seule chose par rapport à tes chiffres de base.</span>
+    </div>
+  </section>
+
+  <section class="panel" id="p-amort" hidden>
+    <div class="card">
+      <h2>Remboursement du prêt, année par année</h2>
+      <div class="scroll"><table><thead><tr><th>Année</th><th>Intérêts payés</th><th>Capital remboursé</th><th>Solde du prêt</th><th>Part de l'immeuble payée</th></tr></thead><tbody id="amo"></tbody></table></div>
+      <span class="sub">Suppose que le taux reste le même pendant tout l'amortissement, ce qui n'arrive jamais en pratique : il change à chaque renouvellement.</span>
+    </div>
+  </section>
+
+  <section class="panel" id="p-notes" hidden>
+    <div class="card">
+      <h2>Notes sur cet immeuble</h2>
+      <textarea id="note" style="min-height:240px" placeholder="Visite, état du toit, baux, appels au courtier, questions pour le notaire…"></textarea>
+    </div>
+  </section>
+
+  <section class="panel" id="p-secteur" hidden>
+    <div class="card" id="sector"></div>
+  </section>
+
+  <section class="panel" id="p-comparer" hidden>
+    <div class="card">
+      <h2>Tes immeubles, du meilleur cashflow au moins bon</h2>
+      <div class="scroll"><table><thead><tr><th>Immeuble</th><th>Prix</th><th>Cashflow / mois</th><th>Par porte</th><th>TGA</th><th>Couverture</th><th>Rendement</th><th></th></tr></thead><tbody id="cmp"></tbody></table></div>
+      <span class="sub">Les immeubles sont gardés dans ce navigateur seulement, sur cet appareil.</span>
+    </div>
+  </section>
+
+  <footer>
+    Paiement calculé à la canadienne : intérêts composés deux fois l'an, versements mensuels. Droits de mutation (taxe de bienvenue) : barème de base 2026, soit 0,5 % jusqu'à 62 900 $, 1 % jusqu'à 315 000 $, puis 1,5 %. Au-delà de 500 000 $, la ville de Québec applique 2 %, puis 2,5 % passé 1 M$ et 3 % passé 2 M$ ; Lévis applique 3 %. Ces barèmes s'appliquent quand la ville est choisie. Loyers moyens et taux d'inoccupation : enquête de la SCHL d'octobre 2025, mise à jour une fois par an. Taux de taxation et charge fiscale par municipalité : profil financier 2024 du ministère des Affaires municipales. Prime d'assurance prêt : grilles de la SCHL pour propriétaire occupant (1 à 4 logements), petit immeuble locatif (2 à 4 logements) et immeuble collectif (5 logements et plus, barème du 13 mai 2025) ; la taxe de 9 % sur la prime se paie comptant chez le notaire. L'impôt est une estimation simple (revenu net moins intérêts, sans amortissement fiscal). Tes immeubles sont gardés dans ce navigateur, sur cet appareil seulement. Ce site n'est pas affilié à Centris, à la SCHL ni au gouvernement du Québec. Outil d'aide à la réflexion, pas un conseil financier.
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>

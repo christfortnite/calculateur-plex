@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Calculateur de plex – envoyer une annonce",
+  "version": "1.1.0",
+  "description": "Sur une annonce Centris, lit la fiche que tu regardes et l'ouvre dans le Calculateur de plex.",
+  "action": { "default_title": "Analyser cette annonce dans le Calculateur de plex" },
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["https://*.github.io/*"],
+  "background": { "service_worker": "background.js" },
+  "icons": { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" }
+}
