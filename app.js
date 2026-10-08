@@ -117,7 +117,7 @@
     // résumé en clair et avertissements
     var vide=!(v.prix>0)||!(v.loyers>0), rs=$('resume'), mois=money.format(Math.abs(o.cf/12));
     rs.className='resume '+(vide?'':verdict[1]);
-    rs.innerHTML='<p>'+(vide?'Entre le <b>prix</b> et les <b>loyers</b> de l’immeuble pour voir s’il se paie lui-même. Tu peux aussi coller une annonce Centris.'
+    rs.innerHTML='<p>'+(vide?'Entre le <b>prix</b> et les <b>loyers</b> de l’immeuble pour voir s’il se paie lui-même. Tu peux aussi coller le texte d’une annonce.'
       :o.cf<0?'À ce prix, cet immeuble te coûterait environ <b>'+mois+' par mois</b> de ta poche : les loyers ne couvrent pas les dépenses et l’hypothèque.'
       :o.rcd<1.1?'Cet immeuble se paie lui-même et te laisse environ <b>'+mois+' par mois</b>, mais la marge est mince : une hausse de taux ou un logement vide suffit à tomber en négatif.'
       :'Cet immeuble se paie lui-même et te laisse environ <b>'+mois+' par mois</b>, avec une marge confortable sur l’hypothèque.')
@@ -235,7 +235,7 @@
   function toNum(s){s=s.replace(/[\s\u00a0\u202f]/g,'').replace(/[.,]\d{2}$/,'').replace(/\D/g,'');return s?parseInt(s,10):NaN}
   // montants qui suivent immédiatement une étiquette
   function amts(t,re,gap){var out=[],m,g=new RegExp(re.source,'gi');while((m=g.exec(t))){var seg=t.slice(m.index+m[0].length,m.index+m[0].length+(gap||40));var n=/^[\s:\u00a0]*(\d[\d\s\u00a0\u202f.,]*)\s*\$/.exec(seg);if(n){var v=toNum(n[1]);if(v>0)out.push(v)}}return out}
-  // format réel d'une fiche Centris copiée avec « tout sélectionner »
+  // format d'une fiche d'annonce copiée avec « tout sélectionner »
   function parseListing(t){
     var r={}, m, L=t.split(/\n/).map(function(l){return l.trim()}).filter(Boolean);
     var ti=L.findIndex(function(l){return /^(duplex|triplex|quadruplex|quintuplex|plex|immeuble|maison|autre)[^$]{0,40}à vendre$/i.test(l)});
@@ -312,7 +312,7 @@
       var mu=muni(p.ville), est='';
       var basis=(r.evalm&&r.prix&&r.evalm>=0.5*r.prix)?r.evalm:(r.prix||0); // une évaluation du terrain seul (immeuble neuf) ne compte pas
       if(!r.tmun&&basis&&mu){p.v.tmun=Math.round(basis*mu[1]/100/10)*10;est=' Taxes municipales absentes de l’annonce : estimées sur '+money.format(basis)+', à vérifier.'}
-      else if(!r.tmun) est=' Taxes absentes du texte, mises à 0 : sur Centris, clique « Voir plus » sous Détails financiers puis recopie la page, ou entre-les à la main.';
+      else if(!r.tmun) est=' Taxes absentes du texte, mises à 0 : affiche les détails financiers de l’annonce puis recopie la page, ou entre-les à la main.';
       if(neuf) est+=' Immeuble neuf : l’évaluation ne couvre que le terrain, taxes scolaires estimées sur le prix.';
       p.ex=0;
       var miss=['loyers','tsco','ass','div'].filter(function(k){return got.indexOf(k)<0}).map(function(k){return NAMES[k]});

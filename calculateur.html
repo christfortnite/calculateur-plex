@@ -6,11 +6,9 @@
 <title>Calculer un immeuble — La Bonne Porte</title>
 <meta name="description" content="Analyse la rentabilité d'un duplex, triplex ou multiplex au Québec : cashflow, couverture de la dette, taxe de bienvenue, prime SCHL, scénarios et prix maximum à offrir.">
 <meta name="color-scheme" content="light dark">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f5c6e'/%3E%3Cpath d='M16 7 6 16h3v9h14v-9h3z' fill='%23fff'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="style.css?v=11">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%231c4a3c'/%3E%3Cpath d='M11 26V8.5h10V26' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/newsreader.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="style.css?v=20">
 </head>
 <body>
 <div class="wrap">
@@ -25,28 +23,10 @@
   </div>
 
   <section class="intro" id="intro" hidden>
-    <svg class="plex" viewBox="0 0 200 184" role="img" aria-label="Un triplex dont la porte s'ouvre">
-      <rect x="34" y="18" width="132" height="8" rx="2" fill="var(--ink)"/>
-      <rect x="40" y="26" width="120" height="140" fill="var(--accent)"/>
-      <rect class="win w1" x="56" y="40" width="30" height="27" rx="2"/>
-      <rect class="win w2" x="114" y="40" width="30" height="27" rx="2"/>
-      <rect class="win w3" x="56" y="82" width="30" height="27" rx="2"/>
-      <rect class="win w4" x="114" y="82" width="30" height="27" rx="2"/>
-      <rect class="win w5" x="56" y="124" width="30" height="27" rx="2"/>
-      <rect x="40" y="73" width="120" height="3" fill="var(--ink)" opacity=".35"/>
-      <rect x="40" y="115" width="120" height="3" fill="var(--ink)" opacity=".35"/>
-      <rect x="112" y="120" width="32" height="46" fill="var(--glow)"/>
-      <polygon class="spill" points="112,166 144,166 170,182 96,182" fill="var(--glow)"/>
-      <g class="door">
-        <rect x="112" y="120" width="32" height="46" fill="var(--ink)"/>
-        <circle cx="138" cy="144" r="2.2" fill="var(--glow)"/>
-      </g>
-      <rect x="18" y="166" width="164" height="3" rx="1.5" fill="var(--ink)"/>
-    </svg>
     <div class="intro-txt">
       <strong>Est-ce que cet immeuble se paie lui-même ?</strong>
       <ol>
-        <li>Entre le prix, les loyers et les taxes, ou colle une annonce Centris.</li>
+        <li>Entre le prix, les loyers et les taxes, ou colle le texte d'une annonce.</li>
         <li>Regarde ce qu'il te reste chaque mois une fois tout payé.</li>
         <li>Teste des scénarios et vois jusqu'à quel prix offrir.</li>
       </ol>
@@ -71,6 +51,7 @@
     <button type="button" role="tab" data-tab="secteur" aria-selected="false">Secteur</button>
     <button type="button" role="tab" data-tab="notes" aria-selected="false">Notes</button>
     <button type="button" role="tab" data-tab="comparer" aria-selected="false">Comparer</button>
+    <button type="button" role="tab" data-tab="sources" aria-selected="false">Sources</button>
   </div>
 
   <section class="panel" id="p-analyse" aria-live="polite">
@@ -112,13 +93,12 @@
   <section class="panel" id="p-donnees" hidden>
     <form id="form" autocomplete="off">
       <fieldset>
-        <legend>Partir d'une annonce Centris</legend>
+        <legend>Partir d'une annonce</legend>
         <div class="f wide">
           <ol class="steps">
-            <li><a id="aCentris" href="https://www.centris.ca/fr/plex~a-vendre" target="_blank" rel="noopener">Ouvrir les plex à vendre sur Centris</a> et choisir une annonce.</li>
-            <li>Sur la page de l'annonce, cliquer « Voir plus » sous Détails financiers pour afficher les taxes.</li>
-            <li>Tout sélectionner puis copier (Cmd+A, Cmd+C sur Mac ; Ctrl+A, Ctrl+C sur PC).</li>
-            <li>Revenir ici et coller dans la case : les champs se remplissent tout seuls.</li>
+            <li>Ouvre l'annonce sur le site où elle est publiée et affiche ses détails financiers (taxes, dépenses).</li>
+            <li>Sélectionne tout le texte de la page et copie-le (Cmd+A, Cmd+C sur Mac ; Ctrl+A, Ctrl+C sur PC).</li>
+            <li>Colle-le dans la case : les champs se remplissent tout seuls.</li>
           </ol>
           <label for="paste">Texte de l'annonce</label>
           <textarea id="paste" placeholder="Ex. : Triplex à vendre… Prix demandé 595 000 $… Revenus bruts potentiels 48 600 $… Taxes municipales (2026) 4 200 $…"></textarea>
@@ -210,12 +190,35 @@
     </div>
   </section>
 
+  <section class="panel" id="p-sources" hidden>
+    <div class="card">
+      <h2>D'où viennent les données de référence</h2>
+<div class="scroll"><table class="src">
+  <thead><tr><th>Donnée</th><th>Source</th><th>Date de référence</th></tr></thead>
+  <tbody>
+    <tr><td>Loyers moyens et taux d'inoccupation</td><td>Société canadienne d'hypothèques et de logement (SCHL), Enquête sur les logements locatifs</td><td>Octobre 2025</td></tr>
+    <tr><td>Primes d'assurance prêt hypothécaire</td><td>SCHL, barèmes pour propriétaires-occupants, petits immeubles locatifs et immeubles collectifs</td><td>Barème des immeubles collectifs du 13 mai 2025 ; autres barèmes consultés le 8 octobre 2026</td></tr>
+    <tr><td>Population, taux global de taxation et charge fiscale par logement</td><td>Ministère des Affaires municipales et de l'Habitation du Québec, Profil financier des municipalités 2024-2025, sur Données Québec</td><td>Exercice 2024</td></tr>
+    <tr><td>Seuils des droits de mutation</td><td>Gouvernement du Québec, montants des tranches de la base d'imposition</td><td>Exercice 2026</td></tr>
+    <tr><td>Tranches de la ville de Québec au-delà de 500 000 $</td><td>Ville de Québec, règlement R.V.Q. 3101</td><td>Consulté le 8 octobre 2026</td></tr>
+    <tr><td>Tranche de Lévis au-delà de 500 000 $</td><td>Ville de Lévis, droits de mutation</td><td>Exercice 2026</td></tr>
+    <tr><td>Taux de la taxe scolaire</td><td>Centre de services scolaire de la Capitale, taux d'imposition</td><td>2026-2027</td></tr>
+    <tr><td>Taux hypothécaire proposé par défaut</td><td>Taux fixe de 5 ans affiché publiquement pour un prêt sans assurance. Valeur indicative, à remplacer par ton propre taux.</td><td>7 octobre 2026</td></tr>
+  </tbody>
+</table></div>
+<p class="mention">Adaptation de données de la Société canadienne d'hypothèques et de logement. La présente ne constitue en aucun cas un appui de la Société canadienne d'hypothèques et de logement envers ce produit.</p>
+<p class="mention">Contient des données du ministère des Affaires municipales et de l'Habitation du Québec, diffusées sur Données Québec sous licence Creative Commons Attribution (CC BY). Les données ont été adaptées : seules certaines municipalités et certains indicateurs sont repris.</p>
+<p class="mention">Ces données sont fournies telles quelles, sans garantie. Elles peuvent avoir changé depuis leur date de référence. Vérifie toujours les chiffres d'un immeuble auprès de la municipalité, du prêteur et du notaire.</p>
+    </div>
+  </section>
+
   <footer>
-    Paiement calculé à la canadienne : intérêts composés deux fois l'an, versements mensuels. Droits de mutation (taxe de bienvenue) : barème de base 2026, soit 0,5 % jusqu'à 62 900 $, 1 % jusqu'à 315 000 $, puis 1,5 %. Au-delà de 500 000 $, la ville de Québec applique 2 %, puis 2,5 % passé 1 M$ et 3 % passé 2 M$ ; Lévis applique 3 %. Ces barèmes s'appliquent quand la ville est choisie. Loyers moyens et taux d'inoccupation : enquête de la SCHL d'octobre 2025, mise à jour une fois par an. Taux de taxation et charge fiscale par municipalité : profil financier 2024 du ministère des Affaires municipales. Prime d'assurance prêt : grilles de la SCHL pour propriétaire occupant (1 à 4 logements), petit immeuble locatif (2 à 4 logements) et immeuble collectif (5 logements et plus, barème du 13 mai 2025) ; la taxe de 9 % sur la prime se paie comptant chez le notaire. L'impôt est une estimation simple (revenu net moins intérêts, sans amortissement fiscal). Tes immeubles sont gardés dans ce navigateur, sur cet appareil seulement. Ce site n'est pas affilié à Centris, à la SCHL ni au gouvernement du Québec. Outil d'aide à la réflexion, pas un conseil financier.
+    Paiement calculé à la canadienne : intérêts composés deux fois l'an, versements mensuels. Les taxes estimées, la prime d'assurance prêt et l'impôt sont des approximations ; le détail des sources est dans l'onglet Sources. Tes immeubles sont gardés dans ce navigateur, sur cet appareil seulement. Outil indépendant d'aide à la réflexion : il ne remplace pas un courtier, un évaluateur, un prêteur ni un notaire.
+    <nav class="foot-links" aria-label="Informations légales"><a href="conditions.html">Conditions d'utilisation</a><a href="confidentialite.html">Confidentialité</a><a href="sources.html">Sources des données</a></nav>
   </footer>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-<script src="app.js?v=11" defer></script>
+<script src="vendor/jspdf.umd.min.js" defer></script>
+<script src="app.js?v=20" defer></script>
 </body>
 </html>

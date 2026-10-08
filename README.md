@@ -43,3 +43,9 @@ Elles sont écrites dans `app.js` :
 - Pas de comptes : rien n'est partagé entre les appareils.
 
 Ce site n'est pas affilié à Centris, à la SCHL ni au gouvernement du Québec. Outil d'aide à la réflexion, pas un conseil financier.
+
+## Pages légales, polices et bibliothèques
+
+- `conditions.html`, `confidentialite.html` et `sources.html` : à faire réviser par un avocat avant de vendre un abonnement, et à compléter avec les coordonnées de l'exploitant.
+- Polices servies par le site (dossier `fonts/`) : Newsreader et Hanken Grotesk, sous licence SIL Open Font License 1.1.
+- `vendor/jspdf.umd.min.js` : jsPDF 2.5.1, licence MIT.
