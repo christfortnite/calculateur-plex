@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 <script>document.documentElement.classList.add("porte")</script>
 </head>
 <body class="home">
@@ -57,8 +57,6 @@
   <nav class="lp-nav">
     <a class="lp-logo" href="index.html"><svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><rect width="32" height="32" rx="7" fill="var(--accent)"/><path d="M16 7 6 16h3v9h14v-9h3z" fill="var(--accent-ink)"/></svg><span class="lp-name">La Bonne Porte<small>Calculateur de plex</small></span></a>
     <div class="lp-links">
-      <a href="#fonctionnement">Fonctionnement</a>
-      <a href="#forfaits">Forfaits</a>
       <button type="button" data-soon="connexion">Se connecter</button>
       <a class="btn primary" href="calculateur.html">Commencer à calculer</a>
     </div>
@@ -66,73 +64,32 @@
 
   <header class="lp-hero">
     <div class="lp-hero-txt">
-      <p class="lp-eyebrow">Immeubles locatifs · Québec</p>
       <h1>Sache si un plex se paie lui-même avant de faire une offre.</h1>
-      <p class="lp-lede">Entre le prix, les loyers et les taxes d'un duplex, d'un triplex ou d'un multiplex. Tu vois en quelques secondes ce qu'il te reste chaque mois, et jusqu'à quel prix offrir.</p>
+      <p class="lp-lede">Entre le prix et les loyers. Tu vois ce qu'il te reste chaque mois.</p>
       <div class="lp-cta">
         <a class="btn primary big" href="calculateur.html">Commencer à calculer</a>
         <span class="lp-free">Gratuit, sans compte.</span>
       </div>
     </div>
     <figure class="lp-card" aria-label="Exemple de résultat">
-      <figcaption>Exemple : triplex fictif à 595 000 $</figcaption>
+      <figcaption>Exemple : triplex à 595 000 $</figcaption>
       <p class="lp-card-big">268 $ <small>par mois</small></p>
       <p class="lp-card-sub">Ce qu'il reste une fois tout payé</p>
-      <dl>
-        <div><dt>Loyers</dt><dd>4 050 $ / mois</dd></div>
-        <div><dt>Hypothèque</dt><dd>2 801 $ / mois</dd></div>
-        <div><dt>Couverture de la dette</dt><dd>1,10</dd></div>
-        <div><dt>Prix maximum à offrir</dt><dd>604 000 $</dd></div>
-      </dl>
       <p class="lp-card-verdict">Rentable, mais peu de marge</p>
     </figure>
   </header>
 
   <section class="lp-sec" id="fonctionnement">
-    <h2>Comment ça marche</h2>
     <ol class="lp-steps">
-      <li><strong>Entre les chiffres de l'annonce</strong><span>Prix, loyers, taxes. Tu peux aussi copier le texte d'une annonce Centris : les champs se remplissent tout seuls.</span></li>
-      <li><strong>Lis le résultat en une phrase</strong><span>L'outil te dit ce que l'immeuble rapporte ou coûte chaque mois, et t'avertit si un chiffre semble faux.</span></li>
-      <li><strong>Teste avant d'offrir</strong><span>Taux qui monte, logement vide, prix négocié : vois ce qui change, puis sors un rapport PDF.</span></li>
+      <li><strong>Entre les chiffres</strong><span>Ou colle une annonce Centris.</span></li>
+      <li><strong>Lis le résultat</strong><span>Ce que l'immeuble rapporte ou coûte par mois.</span></li>
+      <li><strong>Décide ton offre</strong><span>Teste des scénarios et vois le prix maximum.</span></li>
     </ol>
   </section>
 
-  <section class="lp-sec">
-    <h2>Ce que tu obtiens</h2>
-    <ul class="lp-feats">
-      <li><strong>Le cashflow réel</strong><span>Après inoccupation, taxes, assurances, entretien et hypothèque.</span></li>
-      <li><strong>Le prix maximum à offrir</strong><span>Selon ce que tu veux qu'il te reste par logement.</span></li>
-      <li><strong>Neuf scénarios</strong><span>Hausse de taux, loyers plus bas, inoccupation, dépenses plus chères.</span></li>
-      <li><strong>Les frais du Québec</strong><span>Taxe de bienvenue, barèmes de Québec et de Lévis, prime d'assurance prêt de la SCHL.</span></li>
-      <li><strong>Le marché du secteur</strong><span>Loyers moyens et inoccupation pour Québec, Lévis, Lotbinière et la Beauce.</span></li>
-      <li><strong>La comparaison</strong><span>Plusieurs immeubles classés du meilleur cashflow au moins bon.</span></li>
-    </ul>
-  </section>
-
-  <section class="lp-sec" id="forfaits">
-    <h2>Forfaits</h2>
-    <div class="lp-plans">
-      <article class="lp-plan">
-        <h3>Gratuit</h3>
-        <p class="lp-price">0 $</p>
-        <ul>
-          <li>Tout le calculateur</li>
-          <li>Scénarios, amortissement, rapport PDF</li>
-          <li>Tes immeubles gardés dans ce navigateur</li>
-        </ul>
-        <a class="btn primary" href="calculateur.html">Commencer à calculer</a>
-      </article>
-      <article class="lp-plan soon">
-        <h3>Abonné <span class="lp-tag">À venir</span></h3>
-        <p class="lp-price">Prix à venir</p>
-        <ul>
-          <li>Un compte pour retrouver tes immeubles partout</li>
-          <li>Photos et documents par immeuble</li>
-          <li>Analyse d'une annonce en un clic</li>
-        </ul>
-        <button type="button" class="btn" data-soon="abonnement">M'abonner</button>
-      </article>
-    </div>
+  <section class="lp-sec lp-offre" id="forfaits">
+    <p><strong>Gratuit, sans compte.</strong> Un forfait Abonné avec compte et sauvegarde en ligne est à venir.</p>
+    <button type="button" class="btn" data-soon="abonnement">M'abonner</button>
   </section>
 
   <footer class="lp-foot">
@@ -149,6 +106,6 @@
   </div>
 </dialog>
 
-<script src="landing.js?v=7" defer></script>
+<script src="landing.js?v=8" defer></script>
 </body>
 </html>

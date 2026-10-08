@@ -252,3 +252,10 @@ footer{color:var(--muted);font-size:13px;max-width:76ch}
 .seuil-titre span{display:block;font-family:var(--body);font-weight:500;font-size:.38em;letter-spacing:.14em;text-transform:uppercase;opacity:.8;margin-top:6px}
 .lp-name{display:flex;flex-direction:column;line-height:1.1}
 .lp-name small{font-family:var(--body);font-weight:500;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+/* Accueil simplifié */
+.lp{gap:48px}
+.lp-card{align-items:flex-start}
+.lp-offre{flex-direction:row;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 24px;border-top:1px solid var(--line);padding-top:24px}
+.lp-offre p{margin:0;color:var(--muted);max-width:60ch}
+.lp-offre strong{color:var(--ink)}
