@@ -114,6 +114,29 @@
     var mq=((p.ex?'':p.nom+' ')+(p.ville||'')).trim(), hm=$('hMap'); hm.hidden=!mq; hm.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(mq+' Québec');
 
     var verdict=o.cf<0?['Déficitaire','bad','Il faut en remettre de sa poche']:o.rcd<1.1?['Serré','warn','Rentable, mais peu de marge']:['Solide','good','L’immeuble se paie lui-même'];
+    // résumé en clair et avertissements
+    var vide=!(v.prix>0)||!(v.loyers>0), rs=$('resume'), mois=money.format(Math.abs(o.cf/12));
+    rs.className='resume '+(vide?'':verdict[1]);
+    rs.innerHTML='<p>'+(vide?'Entre le <b>prix</b> et les <b>loyers</b> de l’immeuble pour voir s’il se paie lui-même. Tu peux aussi coller une annonce Centris.'
+      :o.cf<0?'À ce prix, cet immeuble te coûterait environ <b>'+mois+' par mois</b> de ta poche : les loyers ne couvrent pas les dépenses et l’hypothèque.'
+      :o.rcd<1.1?'Cet immeuble se paie lui-même et te laisse environ <b>'+mois+' par mois</b>, mais la marge est mince : une hausse de taux ou un logement vide suffit à tomber en négatif.'
+      :'Cet immeuble se paie lui-même et te laisse environ <b>'+mois+' par mois</b>, avec une marge confortable sur l’hypothèque.')
+      +'</p><button type="button" data-go="donnees">'+(vide?'Entrer les chiffres':'Modifier les chiffres')+'</button>';
+    var al=[];
+    if(!vide){
+      var tx=v.tmun+v.tsco;
+      if(tx>v.prix*0.03) al.push('Les taxes ('+money.format(tx)+' par an) dépassent 3 % du prix. Vérifie que ce n’est pas l’évaluation municipale qui a été entrée à la place.');
+      if(tx===0) al.push('Aucune taxe municipale ni scolaire n’est entrée. Le cashflow est donc trop beau.');
+      if(v.ass===0) al.push('Aucune assurance n’est entrée. Compte quelques milliers de dollars par an pour un plex.');
+      if(o.mrb>22) al.push('Le prix vaut plus de 22 fois les loyers d’une année. Vérifie que les loyers sont bien le total de tous les logements, par mois.');
+      if(o.mrb<5) al.push('Le prix vaut moins de 5 fois les loyers d’une année, ce qui est très rare. Vérifie le prix et les loyers.');
+      if(v.mise<20&&!(v.prime>0)) al.push('Avec moins de 20 % de mise, une prime d’assurance prêt s’ajoute. Clique « Calculer selon la grille SCHL » dans l’onglet Données.');
+      if(v.vac===0) al.push('L’inoccupation est à 0 %. Même un bon immeuble a des mois vides ou des loyers impayés.');
+      if(v.taux<2||v.taux>12) al.push('Le taux hypothécaire de '+num(v.taux,2)+' % semble inhabituel.');
+    }
+    $('alertes').hidden=!al.length;
+    $('alertes').innerHTML=al.length?'<strong>À vérifier avant de te fier au résultat</strong><ul>'+al.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul>':'';
+
     $('tiles').innerHTML=
       tile('Cashflow / an',money.format(o.cf),money.format(o.cf/12)+'/m · '+money.format(o.cf/12/o.portes)+'/porte',o.cf<0?'bad':'good')
       +tile('Revenu net (RNE)',money.format(o.rne),'MRB '+(isFinite(o.mrb)?num(o.mrb,1)+' ×':'–'))
@@ -254,7 +277,10 @@
   function disarm(){delArmed=0;$('bDel').textContent='Supprimer'}
   document.addEventListener('click',function(e){
     var t=e.target;
-    if(t.id==='useVac'){cur().v.vac=parseFloat(t.dataset.v);cur().ex=0;fill();render()}
+    if(t.dataset&&t.dataset.go){tab(t.dataset.go);window.scrollTo(0,0)}
+    else if(t.id==='bStart'||t.id==='bIntroX'){$('intro').hidden=true;try{localStorage.setItem('plex-intro','1')}catch(e2){}
+      if(t.id==='bStart'){S.list.push({nom:'Nouvel immeuble',ville:'',ex:0,note:'',files:[],v:Object.assign({},BLANK)});S.cur=S.list.length-1;fill();render();tab('donnees')}}
+    else if(t.id==='useVac'){cur().v.vac=parseFloat(t.dataset.v);cur().ex=0;fill();render()}
     else if(t.dataset&&t.dataset.open){S.cur=parseInt(t.dataset.open,10);fill();render();tab('analyse')}
     else if(t.id==='bNew'){S.list.push({nom:'Nouvel immeuble',ville:'',ex:0,note:'',v:Object.assign({},BLANK)});S.cur=S.list.length-1;$('paste').value='';fill();render();tab('donnees')}
     else if(t.id==='bCopy'){var c=cur();S.list.push({nom:c.nom+' (copie)',ville:c.ville,ex:0,note:c.note||'',files:[],v:Object.assign({},c.v)});S.cur=S.list.length-1;fill();render()}
@@ -323,6 +349,7 @@
     var name=(p.nom||'immeuble').replace(/[^\wÀ-ÿ -]/g,'').trim().slice(0,60)||'immeuble';
     doc.save('Analyse '+name+'.pdf');
   }
+  try{$('intro').hidden=!!localStorage.getItem('plex-intro')}catch(e3){$('intro').hidden=false}
   fill();render();
   // Reçoit une annonce envoyée par l'extension de navigateur (même fenêtre seulement).
   window.addEventListener('message',function(e){

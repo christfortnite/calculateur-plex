@@ -24,6 +24,21 @@
     </div>
   </div>
 
+  <section class="intro" id="intro" hidden>
+    <div>
+      <strong>Est-ce que cet immeuble se paie lui-même ?</strong>
+      <ol>
+        <li>Entre le prix, les loyers et les taxes, ou colle une annonce Centris.</li>
+        <li>Regarde ce qu'il te reste chaque mois une fois tout payé.</li>
+        <li>Teste des scénarios et vois jusqu'à quel prix offrir.</li>
+      </ol>
+    </div>
+    <div class="intro-act">
+      <button type="button" id="bStart" class="primary">Analyser mon immeuble</button>
+      <button type="button" id="bIntroX">Voir l'exemple d'abord</button>
+    </div>
+  </section>
+
   <header class="head">
     <h1 id="hName">–</h1>
     <div class="chips" id="hChips"></div>
@@ -41,7 +56,20 @@
   </div>
 
   <section class="panel" id="p-analyse" aria-live="polite">
+    <div class="resume" id="resume"></div>
+    <div class="alertes" id="alertes" hidden></div>
     <div class="tiles" id="tiles"></div>
+    <details class="lex">
+      <summary>Que veulent dire ces chiffres ?</summary>
+      <dl>
+        <dt>Cashflow</dt><dd>Ce qu'il te reste dans les poches une fois les dépenses et l'hypothèque payées. Négatif : tu dois en remettre chaque mois.</dd>
+        <dt>Revenu net (RNE)</dt><dd>Les loyers moins l'inoccupation et les dépenses, avant l'hypothèque. C'est ce que l'immeuble gagne par lui-même.</dd>
+        <dt>MRB</dt><dd>Le prix divisé par les loyers bruts d'une année. Plus le chiffre est bas, moins tu paies cher pour chaque dollar de loyer.</dd>
+        <dt>Couverture (RCD)</dt><dd>Le revenu net divisé par les versements hypothécaires. À 1,00, l'immeuble paie tout juste sa dette. Les prêteurs demandent souvent 1,10 et plus.</dd>
+        <dt>TGA</dt><dd>Le revenu net divisé par le prix. C'est le rendement de l'immeuble si tu le payais comptant.</dd>
+        <dt>Liquidités</dt><dd>Tout l'argent à sortir à l'achat : mise de fonds, taxe de bienvenue, notaire et autres frais.</dd>
+      </dl>
+    </details>
     <div class="cols">
       <div class="card"><h2>Revenus et dépenses</h2><div class="rows" id="rev"></div></div>
       <div class="card"><h2>Financement</h2><div class="rows" id="fin"></div></div>
@@ -55,6 +83,7 @@
       <div class="card">
         <h2>Prix maximum à offrir</h2>
         <div class="f" style="max-width:260px"><label for="cible">Cashflow visé par porte</label><div class="in"><input id="cible" type="number" inputmode="decimal" step="10"><span>$ / mois</span></div></div>
+        <span class="hint">Ce que tu veux qu'il te reste chaque mois, par logement, une fois tout payé. Mets 0 pour le prix où l'immeuble se paie tout juste.</span>
         <div class="maxv" id="pmax">–</div>
         <div class="sub" id="pmaxNote"></div>
       </div>
