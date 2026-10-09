@@ -8,7 +8,7 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%231f3a5f'/%3E%3Cpath d='M11 26V8.5h10V26' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=23">
+<link rel="stylesheet" href="style.css?v=24">
 </head>
 <body>
 <div class="wrap">
@@ -49,6 +49,7 @@
     <button type="button" role="tab" data-tab="scenarios" aria-selected="false">Scénarios</button>
     <button type="button" role="tab" data-tab="amort" aria-selected="false">Amortissement</button>
     <button type="button" role="tab" data-tab="secteur" aria-selected="false">Secteur</button>
+    <button type="button" role="tab" data-tab="publiques" aria-selected="false">Données publiques</button>
     <button type="button" role="tab" data-tab="notes" aria-selected="false">Notes</button>
     <button type="button" role="tab" data-tab="comparer" aria-selected="false">Comparer</button>
     <button type="button" role="tab" data-tab="sources" aria-selected="false">Sources</button>
@@ -116,6 +117,7 @@
         <div class="f"><label for="prix">Prix d'achat</label><div class="in"><input id="prix" type="number" inputmode="decimal" min="0" step="1000"><span>$</span></div></div>
         <div class="f"><label for="portes">Logements</label><div class="in"><input id="portes" type="number" inputmode="numeric" min="1" step="1"><span>portes</span></div></div>
         <div class="f"><label for="frais">Notaire, inspection, autres</label><div class="in"><input id="frais" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
+        <div class="f"><label for="evalm">Évaluation municipale</label><div class="in"><input id="evalm" type="number" inputmode="decimal" min="0" step="1000"><span>$</span></div><span class="hint">Terrain et bâtiment, selon le rôle</span></div>
         <div class="f"><label for="app">Prise de valeur prévue</label><div class="in"><input id="app" type="number" inputmode="decimal" step="0.5"><span>% / an</span></div><span class="hint">Hypothèse, jamais garantie</span></div>
         <div class="f"><label for="imp">Ton taux d'impôt marginal</label><div class="in"><input id="imp" type="number" inputmode="decimal" min="0" max="60" step="1"><span>%</span></div><span class="hint">0 pour ignorer l'impôt</span></div>
       </fieldset>
@@ -190,6 +192,10 @@
     </div>
   </section>
 
+  <section class="panel" id="p-publiques" hidden>
+    <div class="panel" id="publiques"></div>
+  </section>
+
   <section class="panel" id="p-sources" hidden>
     <div class="card">
       <h2>D'où viennent les données de référence</h2>
@@ -199,6 +205,7 @@
     <tr><td>Loyers moyens et taux d'inoccupation</td><td>Société canadienne d'hypothèques et de logement (SCHL), Enquête sur les logements locatifs</td><td>Octobre 2025</td></tr>
     <tr><td>Primes d'assurance prêt hypothécaire</td><td>SCHL, barèmes pour propriétaires-occupants, petits immeubles locatifs et immeubles collectifs</td><td>Barème des immeubles collectifs du 13 mai 2025 ; autres barèmes consultés le 8 octobre 2026</td></tr>
     <tr><td>Population, taux global de taxation et charge fiscale par logement</td><td>Ministère des Affaires municipales et de l'Habitation du Québec, Profil financier des municipalités 2024-2025, sur Données Québec</td><td>Exercice 2024</td></tr>
+    <tr><td>Population, âge, revenus, ménages locataires, loyer médian, valeur des logements</td><td>Statistique Canada, Profil du recensement, Recensement de la population de 2021</td><td>2021 (revenus de 2020)</td></tr>
     <tr><td>Seuils des droits de mutation</td><td>Gouvernement du Québec, montants des tranches de la base d'imposition</td><td>Exercice 2026</td></tr>
     <tr><td>Tranches de la ville de Québec au-delà de 500 000 $</td><td>Ville de Québec, règlement R.V.Q. 3101</td><td>Consulté le 8 octobre 2026</td></tr>
     <tr><td>Tranche de Lévis au-delà de 500 000 $</td><td>Ville de Lévis, droits de mutation</td><td>Exercice 2026</td></tr>
@@ -207,6 +214,7 @@
   </tbody>
 </table></div>
 <p class="mention">Adaptation de données de la Société canadienne d'hypothèques et de logement. La présente ne constitue en aucun cas un appui de la Société canadienne d'hypothèques et de logement envers ce produit.</p>
+<p class="mention">Adapté de Statistique Canada, Profil du recensement, Recensement de la population de 2021. Cela ne constitue pas une approbation de ce produit par Statistique Canada.</p>
 <p class="mention">Contient des données du ministère des Affaires municipales et de l'Habitation du Québec, diffusées sur Données Québec sous licence Creative Commons Attribution (CC BY). Les données ont été adaptées : seules certaines municipalités et certains indicateurs sont repris.</p>
 <p class="mention">Ces données sont fournies telles quelles, sans garantie. Elles peuvent avoir changé depuis leur date de référence. Vérifie toujours les chiffres d'un immeuble auprès de la municipalité, du prêteur et du notaire.</p>
     </div>
@@ -219,6 +227,6 @@
 </div>
 
 <script src="vendor/jspdf.umd.min.js" defer></script>
-<script src="app.js?v=23" defer></script>
+<script src="app.js?v=24" defer></script>
 </body>
 </html>

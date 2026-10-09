@@ -1,6 +1,6 @@
 (function(){
-  var EX={prix:595000,mise:20,prime:0,frais:3500,taux:5.12,amort:25,portes:3,loyers:4050,autres:0,vac:3,tmun:4200,tsco:380,ass:2400,div:900,ent:5,ges:0,cible:75,app:2,imp:0,typ:0};
-  var BLANK={prix:0,mise:20,prime:0,frais:0,taux:EX.taux,amort:25,portes:3,loyers:0,autres:0,vac:3,tmun:0,tsco:0,ass:0,div:0,ent:5,ges:0,cible:75,app:0,imp:0,typ:0};
+  var EX={prix:595000,mise:20,prime:0,frais:3500,taux:5.12,amort:25,portes:3,loyers:4050,autres:0,vac:3,tmun:4200,tsco:380,ass:2400,div:900,ent:5,ges:0,cible:75,app:2,imp:0,typ:0,evalm:0};
+  var BLANK={prix:0,mise:20,prime:0,frais:0,taux:EX.taux,amort:25,portes:3,loyers:0,autres:0,vac:3,tmun:0,tsco:0,ass:0,div:0,ent:5,ges:0,cible:75,app:0,imp:0,typ:0,evalm:0};
   var KEY='plex-calc-v3', ids=Object.keys(EX), $=function(i){return document.getElementById(i)};
   var money=new Intl.NumberFormat('fr-CA',{style:'currency',currency:'CAD',maximumFractionDigits:0});
   var pct=function(x){return isFinite(x)?(x*100).toLocaleString('fr-CA',{minimumFractionDigits:1,maximumFractionDigits:1})+' %':'–'};
@@ -36,6 +36,29 @@
     'Saint-Théophile':[698,0.8628,998],'Saint-Gédéon-de-Beauce':[2144,1.2222,1910],'Saint-Hilaire-de-Dorset':[99,0.8881,977],'La Guadeloupe':[1846,1.6318,2166],'Saint-Honoré-de-Shenley':[1615,1.2183,1934],'Saint-Martin':[2645,1.3067,1649],'Saint-René':[987,0.8487,2033],'Saint-Côme–Linière':[3406,1.1951,2073],'Saint-Philibert':[361,0.7286,1370],'Saint-Georges':[33546,1.0524,1997],'Lac-Poulin':[174,0.4634,2296],'Saint-Benoît-Labre':[1676,0.9766,1978],'Saint-Éphrem-de-Beauce':[2411,1.2217,1974],'Notre-Dame-des-Pins':[1894,0.9902,2172],'Saint-Simon-les-Mines':[593,0.9141,2188],
     'Saint-Sylvestre':[1051,1.0752,1681],'Sainte-Agathe-de-Lotbinière':[1048,0.8606,1418],'Saint-Patrice-de-Beaurivage':[1092,1.4314,2056],'Saint-Narcisse-de-Beaurivage':[1207,1.0332,2224],'Saint-Gilles':[3185,0.9523,2153],'Dosquet':[954,0.8697,1368],'Saint-Agapit':[4703,1.0343,2187],'Saint-Flavien':[1666,1.0324,1965],'Laurier-Station':[2684,1.0484,2197],'Saint-Janvier-de-Joly':[1141,1.2696,2509],'Val-Alain':[1039,0.9825,1884],'Saint-Édouard-de-Lotbinière':[1311,1.0413,1743],'Notre-Dame-du-Sacré-Cœur-d’Issoudun':[902,0.8023,1697],'Saint-Apollinaire':[8689,0.8061,2089],'Saint-Antoine-de-Tilly':[1752,0.8003,2534],'Sainte-Croix':[2628,0.997,1942],'Leclercville':[507,1.1683,2087]};
   function muni(ville){return T[ville]||(/^Québec,/.test(ville)?T['Québec']:/^Lévis,/.test(ville)?T['Lévis']:null)}
+
+  // Statistique Canada, Profil du recensement de 2021 : [code de subdivision, population, variation 2016-2021 %, âge médian, revenu médian des ménages $, ménages locataires, ménages propriétaires, loyer médian $, valeur médiane des logements $, logements construits 2016-2021]
+  var R={'Québec':['2423027',549459,3.3,43.2,70500,129565,136145,830,300000,16240], 'L’Ancienne-Lorette':['2423057',16970,2.6,47.6,86000,2060,5255,840,300000,405], 'Saint-Augustin-de-Desmaures':['2423072',19907,5.8,48.8,109000,1510,6630,1100,372000,920],
+    'Lévis':['2425213',149683,4.4,44,84000,22430,43320,820,290000,6015], 'Frampton':['2426005',1309,0.9,50.8,69000,65,525,452,174000,30], 'Saints-Anges':['2426010',1239,7.1,39.6,84000,55,450,516,200000,50],
+    'Vallée-Jonction':['2426015',1864,-0.6,46,69500,200,630,584,180000,40], 'Saint-Elzéar':['2426022',2623,9.3,36.4,90000,205,800,720,220000,80], 'Sainte-Marie':['2426030',13134,-3.2,44,78000,1625,3875,710,240000,455],
+    'Sainte-Marguerite':['2426035',1175,9,40,74500,125,355,660,200000,50], 'Sainte-Hénédine':['2426040',1440,13.3,40.4,77500,85,460,564,200000,50], 'Scott':['2426048',2566,9.1,36.4,88000,200,830,870,250000,140],
+    'Saint-Bernard':['2426055',2535,9.2,35.6,81000,205,770,730,230000,110], 'Saint-Isidore':['2426063',3286,14.1,40.4,83000,255,1085,645,246000,140], 'Saint-Lambert-de-Lauzon':['2426070',6817,2.6,40.8,96000,310,2360,850,280000,135],
+    'Saint-Victor':['2427008',2313,-5.5,47.2,67000,155,870,512,150000,35], 'Saint-Alfred':['2427015',519,7.7,42,72500,10,190,null,150000,10], 'Beauceville':['2427028',6185,-1.7,45.2,65500,820,1905,588,170000,180],
+    'Saint-Odilon-de-Cranbourne':['2427035',1407,2.4,44.8,67000,110,460,484,150000,20], 'Saint-Joseph-de-Beauce':['2427043',5014,3.2,43.6,71500,625,1505,556,196000,140], 'Saint-Joseph-des-Érables':['2427050',377,-8,40.8,73000,10,125,null,180000,0],
+    'Saint-Jules':['2427055',547,1.5,39.6,71000,20,190,null,140000,10], 'Tring-Jonction':['2427060',1526,5.4,42.8,72000,155,500,520,174000,35], 'Saint-Frédéric':['2427065',1065,6.8,41.2,70000,60,385,532,160000,10],
+    'Saint-Séverin':['2427070',300,7.9,53.6,56400,15,115,null,150000,10], 'Saint-Théophile':['2429005',702,-1.5,46,60000,45,280,460,120000,0], 'Saint-Gédéon-de-Beauce':['2429013',2093,-5.1,44.8,70500,160,750,548,125000,10],
+    'Saint-Hilaire-de-Dorset':['2429020',96,1.1,53.6,null,10,25,null,null,0], 'La Guadeloupe':['2429030',1805,5.7,45.6,58000,315,505,500,150000,0], 'Saint-Honoré-de-Shenley':['2429038',1555,2.5,41.2,69000,105,545,464,150000,25],
+    'Saint-Martin':['2429045',2588,4.5,42.8,63200,300,840,504,150000,60], 'Saint-René':['2429050',946,27,34.8,93000,30,325,670,200000,60], 'Saint-Côme–Linière':['2429057',3278,1.2,42.8,64000,230,1165,472,150000,40],
+    'Saint-Philibert':['2429065',379,2.7,42.4,72500,15,125,null,186000,0], 'Saint-Georges':['2429073',32935,1.3,45.6,64000,5930,9485,612,200000,1155], 'Lac-Poulin':['2429095',171,16.3,54,null,0,70,null,500000,10],
+    'Saint-Benoît-Labre':['2429100',1617,-0.8,42.4,70000,135,575,560,174000,35], 'Saint-Éphrem-de-Beauce':['2429112',2323,-3.2,43.2,72000,230,760,472,170000,15], 'Notre-Dame-des-Pins':['2429120',1812,13.7,42,81000,220,530,800,200000,135],
+    'Saint-Simon-les-Mines':['2429125',573,4.4,40.8,87000,25,210,null,180000,20], 'Saint-Sylvestre':['2433007',1019,0,48.8,66500,105,330,552,180000,15], 'Sainte-Agathe-de-Lotbinière':['2433017',1049,-10.2,50.4,62000,55,420,520,150000,15],
+    'Saint-Patrice-de-Beaurivage':['2433025',1109,7,40.4,70000,110,340,640,186000,10], 'Saint-Narcisse-de-Beaurivage':['2433030',1152,4.2,36.8,75500,100,350,800,200000,25], 'Saint-Gilles':['2433035',2910,15.2,40.8,74000,210,990,670,220000,125],
+    'Dosquet':['2433040',935,-1,46,66500,80,355,665,160000,0], 'Saint-Agapit':['2433045',4526,5.7,37.2,76500,470,1445,725,200000,135], 'Saint-Flavien':['2433052',1619,0.1,44.4,69000,160,500,524,224000,25],
+    'Laurier-Station':['2433060',2570,-0.1,46,67500,350,780,645,224000,85], 'Saint-Janvier-de-Joly':['2433065',1079,9.7,44,74000,80,390,460,200000,40], 'Val-Alain':['2433070',986,6.7,42.8,62800,85,355,496,160000,30],
+    'Saint-Édouard-de-Lotbinière':['2433080',1240,3.9,42.8,68500,95,420,524,180000,15], 'Notre-Dame-du-Sacré-Cœur-d’Issoudun':['2433085',867,0.7,40.8,80000,30,320,null,226000,20], 'Saint-Apollinaire':['2433090',7968,30.4,36.4,86000,730,2580,760,250000,715],
+    'Saint-Antoine-de-Tilly':['2433095',1682,5.3,49.6,86000,100,640,608,300000,20], 'Sainte-Croix':['2433102',2529,0.5,50.4,62800,335,795,620,214000,25], 'Lotbinière':['2433115',855,5.3,61.6,58400,85,340,472,200000,0],
+    'Leclercville':['2433123',491,3.8,54,60000,30,200,null,174000,35]};
+  function mname(ville){return /^Québec,/.test(ville)?'Québec':/^Lévis,/.test(ville)?'Lévis':ville}
 
   function mutation(p,bar){ // barème de base 2026, plus les tranches de Québec (q) et de Lévis (l)
     var t=[[0,.005],[62900,.01],[315000,.015]];
@@ -225,6 +248,28 @@
       if(y<=5||y%5===0||y===ny) ar+='<tr><td>'+y+'</td><td>'+money.format(yi)+'</td><td>'+money.format(yc)+'</td><td>'+money.format(Math.max(0,sol))+'</td><td>'+pct(v.prix>0?(v.prix-Math.max(0,sol))/v.prix:NaN)+'</td></tr>'}
     $('amo').innerHTML=ar+'<tr class="cur"><td>Total</td><td>'+money.format(ci)+'</td><td>'+money.format(cc)+'</td><td></td><td></td></tr>';
 
+    // données publiques : rôle, démographie, zonage, permis
+    var mn=mname(p.ville), rc=R[mn], mu2=muni(p.ville), W='https://www.google.com/search?q=', lien=function(q,t){return '<a href="'+W+encodeURIComponent(q)+'" target="_blank" rel="noopener">'+t+'</a>'}, hp='';
+    hp+='<div class="card"><h2>Rôle d’évaluation foncière</h2>';
+    if(v.evalm>0){var ratio=v.prix/v.evalm;
+      hp+='<div class="kv"><div><b>'+money.format(v.evalm)+'</b><span>Évaluation municipale entrée</span></div><div><b>'+pct(ratio-1)+'</b><span>Écart entre le prix et l’évaluation</span></div>'
+        +(mu2?'<div><b>'+money.format(v.evalm*mu2[1]/100)+'</b><span>Taxes municipales estimées sur l’évaluation</span></div>':'')+'</div>'
+        +'<span>Le prix demandé vaut '+num(ratio*100,0)+' % de l’évaluation municipale. L’évaluation sert à calculer les taxes ; elle ne dit pas ce que vaut l’immeuble sur le marché.</span>';
+    } else hp+='<span>Entre l’évaluation municipale dans l’onglet Données pour la comparer au prix. Elle figure sur l’annonce, sur le compte de taxes ou au rôle de la municipalité.</span>';
+    hp+='<span class="sub">Le rôle indique l’évaluation du terrain et du bâtiment, la superficie, l’année de construction et le nombre de logements. '+(mn?lien('rôle d’évaluation foncière '+mn+' consultation en ligne','Chercher le rôle en ligne de '+esc(mn)):'Choisis une ville pour obtenir le lien de recherche.')+'</span></div>';
+    hp+='<div class="card"><h2>Démographie'+(mn?' : '+esc(mn):'')+'</h2>';
+    if(rc){var men=(rc[5]||0)+(rc[6]||0), k=function(val,lab){return val===null||val===undefined?'':'<div><b>'+val+'</b><span>'+lab+'</span></div>'};
+      hp+='<div class="kv">'+k(num(rc[1],0),'Population en 2021')+k(rc[2]===null?null:(rc[2]>0?'+':'')+num(rc[2],1)+' %','Variation de 2016 à 2021')+k(rc[3]===null?null:num(rc[3],1)+' ans','Âge médian')
+        +k(rc[4]===null?null:money.format(rc[4]),'Revenu médian des ménages en 2020')+k(men?pct(rc[5]/men):null,'Ménages locataires')+k(rc[7]===null?null:money.format(rc[7]),'Loyer médian en 2021')
+        +k(rc[8]===null?null:money.format(rc[8]),'Valeur médiane des logements en 2021')+k(rc[9]===null?null:num(rc[9],0),'Logements construits de 2016 à 2021')+'</div>'
+        +'<span class="sub">Statistique Canada, Recensement de 2021. Ces chiffres datent : loyers et valeurs ont beaucoup monté depuis. <a href="https://www12.statcan.gc.ca/census-recensement/2021/dp-pd/prof/details/page.cfm?Lang=F&amp;DGUIDlist=2021A0005'+rc[0]+'&amp;GENDERlist=1&amp;STATISTIClist=1&amp;HEADERlist=0" target="_blank" rel="noopener">Voir le profil complet</a></span>';
+    } else hp+='<span class="sub">'+(mn?'Pas de profil du recensement intégré pour cette municipalité.':'Choisis une ville dans l’onglet Données pour afficher son profil.')+'</span>';
+    hp+='</div><div class="cols"><div class="card"><h2>Zonage</h2><span>Le règlement de zonage dit ce que tu peux faire de l’immeuble : usages permis, nombre de logements autorisés, hauteur, stationnement. À vérifier avant d’ajouter un logement ou de changer d’usage.</span><span class="sub">'
+      +(mn?lien('règlement de zonage carte '+mn,'Chercher le zonage de '+esc(mn))+' · ':'')+'<a href="https://www.cptaq.gouv.qc.ca/" target="_blank" rel="noopener">Zone agricole : Commission de protection du territoire agricole</a></span><span class="sub">Le zonage n’est pas intégré à l’outil : chaque municipalité publie le sien.</span></div>'
+      +'<div class="card"><h2>Permis</h2><span>Les permis délivrés pour une adresse montrent les travaux déclarés : toiture, agrandissement, ajout d’un logement. Demande-les à la municipalité ou au vendeur, et compare-les avec l’état réel de l’immeuble.</span><span class="sub">'
+      +(mn?lien('permis de construction '+mn+' demande service urbanisme','Chercher le service des permis de '+esc(mn)):'Choisis une ville pour obtenir le lien de recherche.')+'</span><span class="sub">Il n’existe pas de fichier public provincial des permis par adresse. Les logements construits de 2016 à 2021, plus haut, donnent une idée de l’activité du secteur.</span></div></div>';
+    $('publiques').innerHTML=hp;
+
     // comparer
     var all=S.list.map(function(q,i){return {i:i,q:q,o:compute(q.v,q.ville)}}).sort(function(a,b){return b.o.cf-a.o.cf});
     $('cmp').innerHTML=all.map(function(a){var c=a.o;return '<tr'+(a.i===S.cur?' class="cur"':'')+'><td>'+esc(a.q.nom||'Immeuble sans nom')+(a.q.ville?'<br><span class="sub">'+esc(a.q.ville)+'</span>':'')+'</td><td>'+money.format(a.q.v.prix)+'</td><td class="'+(c.cf<0?'bad':'good')+'">'+money.format(c.cf/12)+'</td><td>'+money.format(c.cf/12/c.portes)+'</td><td>'+pct(c.tga)+'</td><td>'+num(c.rcd,2)+'</td><td>'+pct(c.coc)+'</td><td>'+(a.i===S.cur?'<span class="sub">ouvert</span>':'<button type="button" data-open="'+a.i+'">Ouvrir</button>')+'</td></tr>'}).join('');
@@ -307,6 +352,7 @@
       if(!got.length){$('parseMsg').textContent='Rien de reconnu. Copie toute la page de l’annonce (Cmd+A puis Cmd+C), pas seulement un bout.';return}
       ['tmun','tsco','ass','div'].forEach(function(k){p.v[k]=0}); // ne jamais garder les dépenses d'une annonce précédente
       got.forEach(function(k){p.v[k]=r[k]});
+      p.v.evalm=r.evalm||0;
       if(r.nom) p.nom=r.nom;
       if(r.lieu){var v2=P[r.lieu]?r.lieu:/^Québec/.test(r.lieu)?'Québec, ensemble de la ville':''; if(v2){p.ville=v2;extra.push('ville')} else {p.ville='';extra.push('ville hors des secteurs couverts')}}
       var mu=muni(p.ville), est='';

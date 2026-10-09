@@ -325,3 +325,7 @@ h1,.lp h1,.lp h2,legend,.maxv,.lp-price,.lp-plan h3,.lp-dialog h2,.intro strong,
 .lp-trust li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
 .lp-cta{flex-direction:column;align-items:flex-start;gap:18px}
 .lp-links button{color:var(--muted)}
+
+/* Données publiques */
+#publiques .card a,.sub a{color:var(--accent);text-underline-offset:3px}
+#publiques .card{gap:12px}
