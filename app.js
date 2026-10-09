@@ -1,6 +1,6 @@
 (function(){
-  var EX={prix:595000,mise:20,prime:0,frais:3500,taux:5.12,amort:25,portes:3,loyers:4050,autres:0,vac:3,tmun:4200,tsco:380,ass:2400,div:900,ent:5,ges:0,cible:75,app:2,imp:0,typ:0,evalm:0};
-  var BLANK={prix:0,mise:20,prime:0,frais:0,taux:EX.taux,amort:25,portes:3,loyers:0,autres:0,vac:3,tmun:0,tsco:0,ass:0,div:0,ent:5,ges:0,cible:75,app:0,imp:0,typ:0,evalm:0};
+  var EX={prix:595000,mise:20,prime:0,frais:3500,taux:5.12,amort:25,portes:3,loyers:4050,autres:0,vac:3,tmun:4200,tsco:380,ass:2400,div:900,ent:5,ges:0,cible:75,app:2,imp:0,typ:0,evalm:0,vprix:0,van:0};
+  var BLANK={prix:0,mise:20,prime:0,frais:0,taux:EX.taux,amort:25,portes:3,loyers:0,autres:0,vac:3,tmun:0,tsco:0,ass:0,div:0,ent:5,ges:0,cible:75,app:0,imp:0,typ:0,evalm:0,vprix:0,van:0};
   var KEY='plex-calc-v3', ids=Object.keys(EX), $=function(i){return document.getElementById(i)};
   var money=new Intl.NumberFormat('fr-CA',{style:'currency',currency:'CAD',maximumFractionDigits:0});
   var pct=function(x){return isFinite(x)?(x*100).toLocaleString('fr-CA',{minimumFractionDigits:1,maximumFractionDigits:1})+' %':'–'};
@@ -257,6 +257,13 @@
         +'<span>Le prix demandé vaut '+num(ratio*100,0)+' % de l’évaluation municipale. L’évaluation sert à calculer les taxes ; elle ne dit pas ce que vaut l’immeuble sur le marché.</span>';
     } else hp+='<span>Entre l’évaluation municipale dans l’onglet Données pour la comparer au prix. Elle figure sur l’annonce, sur le compte de taxes ou au rôle de la municipalité.</span>';
     hp+='<span class="sub">Le rôle indique l’évaluation du terrain et du bâtiment, la superficie, l’année de construction et le nombre de logements. '+(mn?lien('rôle d’évaluation foncière '+mn+' consultation en ligne','Chercher le rôle en ligne de '+esc(mn)):'Choisis une ville pour obtenir le lien de recherche.')+'</span></div>';
+    hp+='<div class="card"><h2>Registre foncier : achat du vendeur</h2>';
+    if(v.vprix>0&&v.prix>0){var gain=v.prix-v.vprix, yrs=v.van>1900?new Date().getFullYear()-v.van:0;
+      hp+='<div class="kv"><div><b>'+money.format(v.vprix)+'</b><span>Payé par le vendeur'+(v.van>1900?' en '+v.van:'')+'</span></div><div><b>'+(gain>0?'+':'')+money.format(gain)+'</b><span>Écart avec le prix demandé</span></div><div><b>'+pct(v.prix/v.vprix-1)+'</b><span>Hausse totale</span></div>'
+        +(yrs>0?'<div><b>'+pct(Math.pow(v.prix/v.vprix,1/yrs)-1)+'</b><span>Hausse par année, sur '+yrs+' an'+(yrs>1?'s':'')+'</span></div>':'')+'</div>'
+        +'<span>'+(yrs>0&&yrs<=3&&gain>0?'Achat récent : demande ce qui a été rénové pour justifier la hausse. ':'')+'Cet écart ne tient pas compte des rénovations ni des frais du vendeur ; c’est un repère pour négocier, pas son profit.</span>';
+    } else hp+='<span>Entre le dernier prix payé et l’année dans l’onglet Données pour voir la hausse depuis l’achat du vendeur.</span>';
+    hp+='<span class="sub">Ces deux chiffres se trouvent dans l’acte de vente au Registre foncier du Québec (consultation payante, à faire toi-même), où tu vois aussi les hypothèques, les servitudes et les préavis. <a href="https://www.registrefoncier.gouv.qc.ca/" target="_blank" rel="noopener">Ouvrir le Registre foncier</a></span></div>';
     hp+='<div class="card"><h2>Démographie'+(mn?' : '+esc(mn):'')+'</h2>';
     if(rc){var men=(rc[5]||0)+(rc[6]||0), k=function(val,lab){return val===null||val===undefined?'':'<div><b>'+val+'</b><span>'+lab+'</span></div>'};
       hp+='<div class="kv">'+k(num(rc[1],0),'Population en 2021')+k(rc[2]===null?null:(rc[2]>0?'+':'')+num(rc[2],1)+' %','Variation de 2016 à 2021')+k(rc[3]===null?null:num(rc[3],1)+' ans','Âge médian')
@@ -352,7 +359,7 @@
       if(!got.length){$('parseMsg').textContent='Rien de reconnu. Copie toute la page de l’annonce (Cmd+A puis Cmd+C), pas seulement un bout.';return}
       ['tmun','tsco','ass','div'].forEach(function(k){p.v[k]=0}); // ne jamais garder les dépenses d'une annonce précédente
       got.forEach(function(k){p.v[k]=r[k]});
-      p.v.evalm=r.evalm||0;
+      p.v.evalm=r.evalm||0;p.v.vprix=0;p.v.van=0;
       if(r.nom) p.nom=r.nom;
       if(r.lieu){var v2=P[r.lieu]?r.lieu:/^Québec/.test(r.lieu)?'Québec, ensemble de la ville':''; if(v2){p.ville=v2;extra.push('ville')} else {p.ville='';extra.push('ville hors des secteurs couverts')}}
       var mu=muni(p.ville), est='';

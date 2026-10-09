@@ -8,7 +8,7 @@
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%231f3a5f'/%3E%3Cpath d='M11 26V8.5h10V26' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preload" href="fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css?v=24">
+<link rel="stylesheet" href="style.css?v=25">
 </head>
 <body>
 <div class="wrap">
@@ -118,6 +118,8 @@
         <div class="f"><label for="portes">Logements</label><div class="in"><input id="portes" type="number" inputmode="numeric" min="1" step="1"><span>portes</span></div></div>
         <div class="f"><label for="frais">Notaire, inspection, autres</label><div class="in"><input id="frais" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
         <div class="f"><label for="evalm">Évaluation municipale</label><div class="in"><input id="evalm" type="number" inputmode="decimal" min="0" step="1000"><span>$</span></div><span class="hint">Terrain et bâtiment, selon le rôle</span></div>
+        <div class="f"><label for="vprix">Dernier prix payé par le vendeur</label><div class="in"><input id="vprix" type="number" inputmode="decimal" min="0" step="1000"><span>$</span></div><span class="hint">Selon l’acte de vente au Registre foncier</span></div>
+        <div class="f"><label for="van">Année de cet achat</label><div class="in"><input id="van" type="number" inputmode="numeric" min="1900" max="2100" step="1"></div></div>
         <div class="f"><label for="app">Prise de valeur prévue</label><div class="in"><input id="app" type="number" inputmode="decimal" step="0.5"><span>% / an</span></div><span class="hint">Hypothèse, jamais garantie</span></div>
         <div class="f"><label for="imp">Ton taux d'impôt marginal</label><div class="in"><input id="imp" type="number" inputmode="decimal" min="0" max="60" step="1"><span>%</span></div><span class="hint">0 pour ignorer l'impôt</span></div>
       </fieldset>
@@ -227,6 +229,6 @@
 </div>
 
 <script src="vendor/jspdf.umd.min.js" defer></script>
-<script src="app.js?v=24" defer></script>
+<script src="app.js?v=25" defer></script>
 </body>
 </html>
